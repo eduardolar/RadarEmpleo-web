@@ -221,8 +221,22 @@ main:focus { outline: none; }
   .nav-enlaces li + li::before { content: none; }
   .nav-enlaces a { padding: 15px 14px; font-size: .95rem; }
 }
+/* Móvil: el nombre cabe junto a «Menú» y «Código» si todo se compacta un poco */
 @media (max-width: 430px) {
-  .nav-marca-texto { display: none; }
+  .nav-envoltura { padding-inline: 12px; }
+  .nav { gap: 8px; padding: 6px 6px 6px 8px; }
+  .nav-marca { gap: 6px; white-space: nowrap; }
+  .nav-marca img { width: 28px; height: 28px; }
+  .nav-marca-texto { font-size: 1.05rem; }
+  .nav-menu { gap: 8px; min-height: 44px; padding: 8px 10px; }
+  .nav-accion { min-height: 44px; padding: 8px 12px; }
+  .nav-accion > span[aria-hidden="true"] { display: none; }
+}
+/* Pantallas muy estrechas (< 375 px): fuera también el icono de hamburguesa */
+@media (max-width: 374px) {
+  .nav-menu { padding-inline: 10px; }
+  .nav-menu-raya { display: none; }
+  .nav-marca-texto { font-size: 1rem; }
 }
 
 /* ---------- Hero ---------- */
