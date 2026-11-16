@@ -182,10 +182,13 @@
 
           <!-- Inicio -->
           <div class="panel" role="tabpanel" id="panel-inicio" aria-labelledby="tab-inicio" tabindex="0">
-            <figure class="portatil">
+            <figure class="portatil con-movil">
               <div class="portatil-pantalla">
-                <img src="img/inicio-escritorio.webp" width="1600" height="988" loading="lazy" decoding="async"
-                     alt="Pantalla Inicio en modo oscuro: tres recordatorios para hoy, uno marcado como «Vencido · jue 12 nov», cada uno con los botones Hecho y Posponer; a la derecha, el resumen con 12 candidaturas activas, un 33 % de tasa de respuesta y la semana del 9 al 15 de noviembre.">
+                <picture>
+                  <source media="(max-width: 600px)" srcset="img/movil-inicio.webp" width="620" height="1377">
+                  <img src="img/inicio-escritorio.webp" width="1600" height="988" loading="lazy" decoding="async"
+                       alt="Pantalla Inicio en modo oscuro: los recordatorios para hoy, uno marcado como «Vencido · jue 12 nov», cada uno con los botones Hecho y Posponer. En el ordenador se ve además, a la derecha, el resumen con 12 candidaturas activas, un 33 % de tasa de respuesta y la semana del 9 al 15 de noviembre; en el móvil, el resumen va plegado y encima están el botón «Nuevo recordatorio» y los filtros por tipo.">
+                </picture>
               </div>
               <div class="portatil-base" aria-hidden="true"></div>
             </figure>
@@ -225,10 +228,13 @@
 
           <!-- Estadísticas -->
           <div class="panel" role="tabpanel" id="panel-estadisticas" aria-labelledby="tab-estadisticas" tabindex="0" hidden>
-            <figure class="portatil">
+            <figure class="portatil con-movil">
               <div class="portatil-pantalla">
-                <img src="img/estadisticas-escritorio.webp" width="1600" height="1244" loading="lazy" decoding="async"
-                     alt="Pantalla Estadísticas en modo oscuro: barras con las 16 candidaturas por estado, las enviadas por semana durante ocho semanas, la tasa de respuesta (3 de 9, un 33 %, con 7 días de media hasta la respuesta) y los motivos de descarte, experiencia e inglés.">
+                <picture>
+                  <source media="(max-width: 600px)" srcset="img/movil-estadisticas.webp" width="620" height="1377">
+                  <img src="img/estadisticas-escritorio.webp" width="1600" height="1244" loading="lazy" decoding="async"
+                       alt="Pantalla Estadísticas en modo oscuro: barras con las 16 candidaturas por estado y las enviadas por semana durante ocho semanas, con la cifra al lado de cada barra. En el ordenador caben también la tasa de respuesta (3 de 9, un 33 %, con 7 días de media hasta la respuesta) y los motivos de descarte, experiencia e inglés.">
+                </picture>
               </div>
               <div class="portatil-base" aria-hidden="true"></div>
             </figure>

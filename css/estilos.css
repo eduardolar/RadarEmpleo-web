@@ -686,6 +686,7 @@ kbd {
   border-radius: 12px 12px 0 0;
 }
 .portatil-pantalla img { display: block; width: 100%; border-radius: 2px; background: var(--seccion-osc); }
+.portatil-pantalla picture { display: block; } /* envuelve la captura sin cambiar nada en escritorio */
 .portatil-base {
   position: relative;
   height: clamp(12px, 1.5vw, 20px);
@@ -802,6 +803,17 @@ kbd {
   .m-izq { transform: rotate(-3deg); }
   .m-der { transform: rotate(3deg); }
   .movil { box-shadow: 4px 4px 0 #9ca3af; }
+
+  /* Inicio y Estadísticas cambian a la captura del móvil (<picture>): marco de teléfono */
+  .con-movil { width: min(250px, 72vw); margin-inline: auto; filter: none; }
+  .con-movil .portatil-pantalla {
+    padding: 7px;
+    border-radius: 30px;
+    box-shadow: 5px 5px 0 #9ca3af;
+  }
+  .con-movil .portatil-pantalla img { border-radius: 24px; }
+  .con-movil .portatil-base { display: none; }
+
 }
 
 /* ---------- Franja ---------- */
