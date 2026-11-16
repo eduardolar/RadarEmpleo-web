@@ -542,18 +542,37 @@ main:focus { outline: none; }
   .f-entrevista { top: auto; bottom: 14%; right: -40px; }
 }
 
+/* Móvil: el hero se coloca respecto al centro del título.
+   El bloque de texto va centrado en el hero, así que el título queda unos 154 px
+   por encima de la mitad (--titulo-y); radar y tarjetas se miden desde ahí y
+   no dependen del alto de la pantalla. Las tarjetas van por detrás del texto
+   (z-index 1 frente a 3): asoman bajo las letras sin taparlas. */
 @media (max-width: 600px) {
-  .hero { padding-top: 96px; padding-bottom: 150px; }
-  .f-enviada { display: none; }
-  .f-hecho { right: 4%; top: 12.5%; --esc: .82; }
-  .f-vencido { right: auto; left: 3%; top: 13%; }
-  .f-tasa { bottom: 7%; left: 4%; --esc: .7; transform-origin: 0 100%; }
-  .f-entrevista { bottom: 12%; right: -66px; --esc: .7; transform-origin: 100% 100%; }
-  .p1 { left: 8%; top: 27%; }
-  .p2 { right: 9%; top: 26%; }
-  .p3 { right: 30%; bottom: 4%; }
-  .p5 { left: 46%; top: 12%; }
-  .mascota { display: none; }
+  .hero {
+    --titulo-y: calc(50% - 154px);
+    min-height: max(100vh, 760px);
+    min-height: max(100svh, 760px);
+    padding-top: 96px;
+    padding-bottom: 150px;
+  }
+
+  /* Solo cuatro piezas, más pequeñas; lo demás (y todo lo borroso) fuera */
+  .f-vencido, .f-oferta, .f-semana, .f-sello, .f-ctrlz,
+  .p2, .p4, .mascota { display: none; }
+  .lejos { filter: none; opacity: 1; }
+
+  /* Arriba a la izquierda, apoyada en la primera R */
+  .f-enviada { left: 10px; right: auto; top: calc(50% - 282px); bottom: auto; --esc: .6; transform-origin: 0 0; }
+  /* Arriba a la derecha, sobre la última R */
+  .f-hecho { left: auto; right: 12px; top: calc(50% - 246px); bottom: auto; --esc: .78; transform-origin: 100% 0; }
+  /* Debajo de los botones, una a cada lado */
+  .f-tasa { left: 12px; right: auto; top: calc(50% + 200px); bottom: auto; --esc: .5; transform-origin: 0 0; }
+  .f-entrevista { left: auto; right: 12px; top: calc(50% + 212px); bottom: auto; --esc: .6; transform-origin: 100% 0; }
+
+  .p1 { left: 3%; top: calc(50% - 130px); }
+  .p3 { left: auto; right: 6%; top: calc(50% + 150px); bottom: auto; }
+  .p5 { left: 48%; top: calc(50% - 292px); }
+
   .pausar { bottom: 16px; }
 }
 
