@@ -550,8 +550,9 @@ main:focus { outline: none; }
 @media (max-width: 600px) {
   .hero {
     --titulo-y: calc(50% - 154px);
-    min-height: max(100vh, 760px);
-    min-height: max(100svh, 760px);
+    /* Alto de pantalla, pero con tope: en móviles altos no queda un hueco bajo las tarjetas */
+    min-height: clamp(760px, 100vh, 820px);
+    min-height: clamp(760px, 100svh, 820px);
     padding-top: 96px;
     padding-bottom: 150px;
     background:
@@ -580,6 +581,23 @@ main:focus { outline: none; }
   .p5 { left: 48%; top: calc(50% - 292px); }
 
   .pausar { bottom: 16px; }
+}
+
+/* Móvil estrecho (≤ 380 px): el título es algo más bajo y el texto ocupa tres
+   líneas, así que el título sube y los botones bajan unos 13 px respecto a 390. */
+@media (max-width: 380px) {
+  .hero {
+    min-height: clamp(780px, 100vh, 820px);
+    min-height: clamp(780px, 100svh, 820px);
+  }
+  /* Arriba: por encima de la línea de RADAR, para que se lean «Hecho» y la etiqueta «Enviada» */
+  .f-enviada { top: calc(50% - 298px); --esc: .52; }
+  .f-hecho { top: calc(50% - 288px); }
+  /* Abajo: al menos 12 px de aire con «Cómo funciona» */
+  .f-tasa { top: calc(50% + 226px); }
+  .f-entrevista { top: calc(50% + 228px); }
+  /* En una sola línea («left: 50%» le dejaba solo media pantalla de ancho) */
+  .pausar { white-space: nowrap; min-height: 44px; }
 }
 
 /* ---------- Secciones ---------- */
