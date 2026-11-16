@@ -814,6 +814,22 @@ kbd {
   .con-movil .portatil-pantalla img { border-radius: 24px; }
   .con-movil .portatil-base { display: none; }
 
+  /* Donde solo hay captura de escritorio, el enlace para verla en grande pasa a ser un botón claro */
+  .ampliar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 10px 16px;
+    color: var(--tinta);
+    text-decoration: none;
+    background: var(--blanco);
+    border: 2px solid var(--tinta);
+    border-radius: 4px;
+    box-shadow: 3px 3px 0 var(--tinta);
+  }
+  .ampliar:hover { color: var(--tinta); background: var(--lima); }
 }
 
 /* ---------- Franja ---------- */
