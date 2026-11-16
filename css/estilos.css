@@ -554,7 +554,13 @@ main:focus { outline: none; }
     min-height: max(100svh, 760px);
     padding-top: 96px;
     padding-bottom: 150px;
+    background:
+      radial-gradient(ellipse 95% 38% at 50% var(--titulo-y), #17233d 0%, rgba(11, 17, 30, 0) 70%),
+      var(--lienzo);
   }
+
+  /* Radar más grande y centrado en el título: el título cabe en el tercer anillo */
+  .radar { width: 240vw; top: var(--titulo-y); }
 
   /* Solo cuatro piezas, más pequeñas; lo demás (y todo lo borroso) fuera */
   .f-vencido, .f-oferta, .f-semana, .f-sello, .f-ctrlz,
