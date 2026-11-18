@@ -135,9 +135,11 @@
 
   const revelables = [...document.querySelectorAll('.revela')];
   if ('IntersectionObserver' in window && !movReducido.matches) {
-    // Lo que ya está en pantalla (recarga a mitad, entrar con #ancla) se queda quieto:
-    // se marca visible sin animación antes de observar, y también en la primera
-    // tanda del observador por si el navegador recoloca el scroll después.
+    // Lo que ya está en pantalla (recarga a mitad, entrar con #ancla) se queda quieto.
+    // Se espera a «load» y dos fotogramas: entonces el navegador ya ha devuelto el
+    // scroll a donde estaba; hasta ese momento todo se ve sin animar. El salto a un
+    // #ancla es suave y empieza después, así que con ancla se fija todo lo que queda
+    // por encima de ella o en su misma pantalla.
     const enPantalla = (el) => {
       const r = el.getBoundingClientRect();
       return r.bottom > 0 && r.top < window.innerHeight;
@@ -148,26 +150,31 @@
         c.textContent = (c.dataset.prefijo || '') + formatear(parseInt(c.dataset.cuenta, 10));
       });
     };
-    const pendientes = revelables.filter((el) => {
-      if (!enPantalla(el)) return true;
-      fijar(el);
-      return false;
-    });
-    // El contenido se ve sin esta clase; con ella, cada bloque entra animado al asomar
-    raiz.classList.add('anima-revela');
-    let primeraTanda = true;
-    const obs = new IntersectionObserver((entradas) => {
-      const esPrimera = primeraTanda;
-      primeraTanda = false;
-      entradas.forEach((en) => {
-        if (!en.isIntersecting) return;
-        obs.unobserve(en.target);
-        if (esPrimera) { fijar(en.target); return; }
-        en.target.classList.add('visible');
-        en.target.querySelectorAll('[data-cuenta]').forEach(contar);
+    const empezar = () => {
+      let id = '';
+      try { id = decodeURIComponent(location.hash.slice(1)); } catch { /* ancla mal escrita */ }
+      const ancla = id ? document.getElementById(id) : null;
+      const limite = ancla ? ancla.getBoundingClientRect().top + window.innerHeight : -Infinity;
+      const pendientes = revelables.filter((el) => {
+        if (!enPantalla(el) && el.getBoundingClientRect().top >= limite) return true;
+        fijar(el);
+        return false;
       });
-    }, { threshold: 0 });
-    pendientes.forEach((el) => obs.observe(el));
+      // El contenido se ve sin esta clase; con ella, cada bloque entra animado al asomar
+      raiz.classList.add('anima-revela');
+      const obs = new IntersectionObserver((entradas) => {
+        entradas.forEach((en) => {
+          if (!en.isIntersecting) return;
+          obs.unobserve(en.target);
+          en.target.classList.add('visible');
+          en.target.querySelectorAll('[data-cuenta]').forEach(contar);
+        });
+      }, { threshold: 0 });
+      pendientes.forEach((el) => obs.observe(el));
+    };
+    const trasDosFotogramas = () => requestAnimationFrame(() => requestAnimationFrame(empezar));
+    if (document.readyState === 'complete') trasDosFotogramas();
+    else window.addEventListener('load', trasDosFotogramas, { once: true });
   } else {
     revelables.forEach((el) => el.classList.add('visible'));
   }
