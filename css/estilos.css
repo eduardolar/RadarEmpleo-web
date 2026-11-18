@@ -221,8 +221,22 @@ main:focus { outline: none; }
   .nav-enlaces li + li::before { content: none; }
   .nav-enlaces a { padding: 15px 14px; font-size: .95rem; }
 }
+/* Móvil: el nombre cabe junto a «Menú» y «Código» si todo se compacta un poco */
 @media (max-width: 430px) {
-  .nav-marca-texto { display: none; }
+  .nav-envoltura { padding-inline: 12px; }
+  .nav { gap: 8px; padding: 6px 6px 6px 8px; }
+  .nav-marca { gap: 6px; white-space: nowrap; }
+  .nav-marca img { width: 28px; height: 28px; }
+  .nav-marca-texto { font-size: 1.05rem; }
+  .nav-menu { gap: 8px; min-height: 44px; padding: 8px 10px; }
+  .nav-accion { min-height: 44px; padding: 8px 12px; }
+  .nav-accion > span[aria-hidden="true"] { display: none; }
+}
+/* Pantallas muy estrechas (< 375 px): fuera también el icono de hamburguesa */
+@media (max-width: 374px) {
+  .nav-menu { padding-inline: 10px; }
+  .nav-menu-raya { display: none; }
+  .nav-marca-texto { font-size: 1rem; }
 }
 
 /* ---------- Hero ---------- */
@@ -528,19 +542,62 @@ main:focus { outline: none; }
   .f-entrevista { top: auto; bottom: 14%; right: -40px; }
 }
 
+/* Móvil: el hero se coloca respecto al centro del título.
+   El bloque de texto va centrado en el hero, así que el título queda unos 154 px
+   por encima de la mitad (--titulo-y); radar y tarjetas se miden desde ahí y
+   no dependen del alto de la pantalla. Las tarjetas van por detrás del texto
+   (z-index 1 frente a 3): asoman bajo las letras sin taparlas. */
 @media (max-width: 600px) {
-  .hero { padding-top: 96px; padding-bottom: 150px; }
-  .f-enviada { display: none; }
-  .f-hecho { right: 4%; top: 12.5%; --esc: .82; }
-  .f-vencido { right: auto; left: 3%; top: 13%; }
-  .f-tasa { bottom: 7%; left: 4%; --esc: .7; transform-origin: 0 100%; }
-  .f-entrevista { bottom: 12%; right: -66px; --esc: .7; transform-origin: 100% 100%; }
-  .p1 { left: 8%; top: 27%; }
-  .p2 { right: 9%; top: 26%; }
-  .p3 { right: 30%; bottom: 4%; }
-  .p5 { left: 46%; top: 12%; }
-  .mascota { display: none; }
+  .hero {
+    --titulo-y: calc(50% - 154px);
+    /* Alto de pantalla, pero con tope: en móviles altos no queda un hueco bajo las tarjetas */
+    min-height: clamp(760px, 100vh, 820px);
+    min-height: clamp(760px, 100svh, 820px);
+    padding-top: 96px;
+    padding-bottom: 150px;
+    background:
+      radial-gradient(ellipse 95% 38% at 50% var(--titulo-y), #17233d 0%, rgba(11, 17, 30, 0) 70%),
+      var(--lienzo);
+  }
+
+  /* Radar más grande y centrado en el título: el título cabe en el tercer anillo */
+  .radar { width: 240vw; top: var(--titulo-y); }
+
+  /* Solo cuatro piezas, más pequeñas; lo demás (y todo lo borroso) fuera */
+  .f-vencido, .f-oferta, .f-semana, .f-sello, .f-ctrlz,
+  .p2, .p4, .mascota { display: none; }
+  .lejos { filter: none; opacity: 1; }
+
+  /* Arriba a la izquierda, apoyada en la primera R */
+  .f-enviada { left: 10px; right: auto; top: calc(50% - 282px); bottom: auto; --esc: .6; transform-origin: 0 0; }
+  /* Arriba a la derecha, sobre la última R */
+  .f-hecho { left: auto; right: 12px; top: calc(50% - 246px); bottom: auto; --esc: .78; transform-origin: 100% 0; }
+  /* Debajo de los botones, una a cada lado */
+  .f-tasa { left: 12px; right: auto; top: calc(50% + 200px); bottom: auto; --esc: .5; transform-origin: 0 0; }
+  .f-entrevista { left: auto; right: 12px; top: calc(50% + 212px); bottom: auto; --esc: .6; transform-origin: 100% 0; }
+
+  .p1 { left: 3%; top: calc(50% - 130px); }
+  .p3 { left: auto; right: 6%; top: calc(50% + 150px); bottom: auto; }
+  .p5 { left: 48%; top: calc(50% - 292px); }
+
   .pausar { bottom: 16px; }
+}
+
+/* Móvil estrecho (≤ 380 px): el título es algo más bajo y el texto ocupa tres
+   líneas, así que el título sube y los botones bajan unos 13 px respecto a 390. */
+@media (max-width: 380px) {
+  .hero {
+    min-height: clamp(780px, 100vh, 820px);
+    min-height: clamp(780px, 100svh, 820px);
+  }
+  /* Arriba: por encima de la línea de RADAR, para que se lean «Hecho» y la etiqueta «Enviada» */
+  .f-enviada { top: calc(50% - 298px); --esc: .52; }
+  .f-hecho { top: calc(50% - 288px); }
+  /* Abajo: al menos 12 px de aire con «Cómo funciona» */
+  .f-tasa { top: calc(50% + 226px); }
+  .f-entrevista { top: calc(50% + 228px); }
+  /* En una sola línea («left: 50%» le dejaba solo media pantalla de ancho) */
+  .pausar { white-space: nowrap; min-height: 44px; }
 }
 
 /* ---------- Secciones ---------- */
@@ -647,6 +704,7 @@ kbd {
   border-radius: 12px 12px 0 0;
 }
 .portatil-pantalla img { display: block; width: 100%; border-radius: 2px; background: var(--seccion-osc); }
+.portatil-pantalla picture { display: block; } /* envuelve la captura sin cambiar nada en escritorio */
 .portatil-base {
   position: relative;
   height: clamp(12px, 1.5vw, 20px);
@@ -741,8 +799,21 @@ kbd {
   .m-centro { width: clamp(116px, 32vw, 270px); }
 }
 @media (max-width: 600px) {
-  .flecha { width: 44px; height: 50px; }
-  .pestanas-lista [role="tab"] { padding: 10px 16px; font-size: 1rem; }
+  .flecha { width: 48px; height: 50px; }
+  .pestanas-lista [role="tab"] { min-height: 48px; padding: 10px 16px; font-size: 1rem; scroll-snap-align: start; }
+  /* Las pestañas se deslizan: un degradado junto a la flecha derecha avisa de que
+     hay más; el relleno final deja la última pestaña fuera del degradado. */
+  .pestanas-barra { position: relative; }
+  .pestanas-barra::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    right: 58px; /* flecha (48 px) + hueco (10 px) */
+    width: 40px;
+    background: linear-gradient(to right, rgba(243, 244, 246, 0), var(--gris-claro) 85%);
+    pointer-events: none;
+  }
+  .pestanas-lista { padding-right: 44px; scroll-snap-type: x proximity; scroll-padding-inline: 4px; }
   .portatil { filter: drop-shadow(5px 5px 0 var(--tinta)); }
   .moviles { gap: 6px; padding-inline: 0; }
   .m-izq, .m-der { width: 25vw; }
@@ -750,6 +821,33 @@ kbd {
   .m-izq { transform: rotate(-3deg); }
   .m-der { transform: rotate(3deg); }
   .movil { box-shadow: 4px 4px 0 #9ca3af; }
+
+  /* Inicio y Estadísticas cambian a la captura del móvil (<picture>): marco de teléfono */
+  .con-movil { width: min(250px, 72vw); margin-inline: auto; filter: none; }
+  .con-movil .portatil-pantalla {
+    padding: 7px;
+    border-radius: 30px;
+    box-shadow: 5px 5px 0 #9ca3af;
+  }
+  .con-movil .portatil-pantalla img { border-radius: 24px; }
+  .con-movil .portatil-base { display: none; }
+
+  /* Donde solo hay captura de escritorio, el enlace para verla en grande pasa a ser un botón claro */
+  .ampliar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 10px 16px;
+    color: var(--tinta);
+    text-decoration: none;
+    background: var(--blanco);
+    border: 2px solid var(--tinta);
+    border-radius: 4px;
+    box-shadow: 3px 3px 0 var(--tinta);
+  }
+  .ampliar:hover { color: var(--tinta); background: var(--lima); }
 }
 
 /* ---------- Franja ---------- */
