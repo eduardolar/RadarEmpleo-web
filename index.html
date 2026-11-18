@@ -20,7 +20,7 @@
   <meta property="og:description" content="¿La de trabajar te la sabes? La app con la que llevo mi búsqueda de empleo: tablero, recordatorios, estadísticas y un radar semanal de ofertas con Claude. .NET 10 + Angular 22, con más de 2.000 tests.">
   <link rel="icon" href="img/logo-radarempleo.svg?v=20261118-1" type="image/svg+xml">
   <link rel="preload" href="fonts/bricolage-grotesque-latin.woff2?v=20261118-1" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/estilos.css?v=20261118-2">
+  <link rel="stylesheet" href="css/estilos.css?v=20261118-3">
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -137,31 +137,56 @@
       </div>
 
       <!-- Arriba a la derecha: va antes del contenido para que el orden de tabulación siga al visual -->
-      <button class="pausar" type="button" aria-label="Pausar animaciones" title="Pausar animaciones"><span aria-hidden="true">❚❚</span></button>
+      <button class="pausar" type="button" aria-label="Pausar animaciones y vídeos" title="Pausar animaciones y vídeos"><span aria-hidden="true">❚❚</span></button>
 
       <div class="hero-contenido">
-        <p class="titulo">
-          <span class="sr-only">RadarEmpleo</span>
-          <span class="titulo-radar" aria-hidden="true"><span style="--r:-8deg;--y:.13em">R</span><span style="--r:-4deg;--y:.035em">A</span><span style="--r:0deg;--y:0em">D</span><span style="--r:4deg;--y:.035em">A</span><span style="--r:8deg;--y:.13em">R</span></span>
-          <span class="titulo-empleo" aria-hidden="true">EMPLEO</span>
-        </p>
-        <p class="hero-eslogan"><span aria-hidden="true">// </span>¿La de trabajar te la sabes?</p>
-        <h1 class="hero-titulo" id="titulo-hero">Mi búsqueda de empleo, <span class="lima">en una app</span>: tablero, recordatorios, estadísticas y un radar semanal de ofertas con Claude.</h1>
-        <ul class="hero-stack" aria-label="Stack">
-          <li>ASP.NET Core 10</li>
-          <li>Angular 22</li>
-          <li>EF Core</li>
-          <li>+2.000 tests</li>
-          <li><a class="insignia-ci" href="https://github.com/eduardolar/RadarEmpleo/actions" target="_blank" rel="noopener"><span class="insignia-ci-punto" aria-hidden="true"></span>CI<span class="sr-only"> en GitHub Actions (se abre en otra pestaña)</span></a></li>
-        </ul>
-        <div class="hero-botones">
-          <a class="boton boton-lima" href="https://github.com/eduardolar/RadarEmpleo" target="_blank" rel="noopener">
-            <svg class="icono" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
-            Ver el código en GitHub<span class="sr-only"> (se abre en otra pestaña)</span>
-          </a>
-          <a class="boton boton-borde" href="#pantallas">Verla en 30&nbsp;s <span aria-hidden="true">↓</span></a>
+        <div class="hero-texto">
+          <p class="titulo">
+            <span class="sr-only">RadarEmpleo</span>
+            <span class="titulo-radar" aria-hidden="true"><span style="--r:-8deg;--y:.13em">R</span><span style="--r:-4deg;--y:.035em">A</span><span style="--r:0deg;--y:0em">D</span><span style="--r:4deg;--y:.035em">A</span><span style="--r:8deg;--y:.13em">R</span></span>
+            <span class="titulo-empleo" aria-hidden="true">EMPLEO</span>
+          </p>
+          <p class="hero-eslogan"><span aria-hidden="true">// </span>¿La de trabajar te la sabes?</p>
+          <h1 class="hero-titulo" id="titulo-hero">Mi búsqueda de empleo, <span class="lima">en una app</span>: tablero, recordatorios, estadísticas y un radar semanal de ofertas con Claude.</h1>
+          <ul class="hero-stack" aria-label="Stack">
+            <li>ASP.NET Core 10</li>
+            <li>Angular 22</li>
+            <li>EF Core</li>
+            <li>+2.000 tests</li>
+            <li><a class="insignia-ci" href="https://github.com/eduardolar/RadarEmpleo/actions" target="_blank" rel="noopener"><span class="insignia-ci-punto" aria-hidden="true"></span>CI<span class="sr-only"> en GitHub Actions (se abre en otra pestaña)</span></a></li>
+          </ul>
+          <div class="hero-botones">
+            <a class="boton boton-lima" href="https://github.com/eduardolar/RadarEmpleo" target="_blank" rel="noopener">
+              <svg class="icono" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+              Ver el código en GitHub<span class="sr-only"> (se abre en otra pestaña)</span>
+            </a>
+            <a class="boton boton-borde" href="#pantallas">Verla en 30&nbsp;s <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="hero-nota">Sin demo en línea: la app funciona en local. Aquí la tienes en vídeo, con datos inventados.</p>
         </div>
-        <p class="hero-nota">Sin demo en línea: la app funciona en local. Abajo la tienes en capturas reales.</p>
+
+        <!-- Vídeo de la app: el portátil en escritorio y el teléfono en el móvil (solo se ve uno) -->
+        <figure class="portatil portatil-hero video-marco">
+          <div class="portatil-pantalla">
+            <video class="video" muted loop playsinline preload="none" width="1280" height="800"
+                   style="background-image: url('video/tablero-poster.webp?v=20261118-3')"
+                   aria-label="Vídeo sin sonido del tablero: una candidatura se arrastra de Enviada a Entrevista, sale el aviso con «Deshacer» y, en su ficha, se le pone un recordatorio para la entrevista de mañana a las 10:00.">
+              <source src="video/tablero.webm?v=20261118-3" type="video/webm">
+              <source src="video/tablero.mp4?v=20261118-3" type="video/mp4">
+            </video>
+            <button class="video-boton" type="button" data-nombre="del tablero" hidden><span aria-hidden="true">▶</span></button>
+          </div>
+          <div class="portatil-base" aria-hidden="true"></div>
+        </figure>
+        <figure class="movil movil-hero video-marco">
+          <video class="video video-movil" muted loop playsinline preload="none" width="720" height="1558"
+                 style="background-image: url('video/movil-poster.webp?v=20261118-3')"
+                 aria-label="Vídeo sin sonido de la app en el móvil: la ficha de una candidatura enviada, con su sello, el CV, los recordatorios y el historial; al final cambia a modo oscuro.">
+            <source src="video/movil.webm?v=20261118-3" type="video/webm">
+            <source src="video/movil.mp4?v=20261118-3" type="video/mp4">
+          </video>
+          <button class="video-boton" type="button" data-nombre="del móvil" hidden><span aria-hidden="true">▶</span></button>
+        </figure>
       </div>
 
       <img class="mascota" src="img/logo-radarempleo.svg?v=20261118-1" alt="" width="150" height="150" data-prof="0.3">
