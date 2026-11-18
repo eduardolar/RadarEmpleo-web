@@ -27,7 +27,8 @@ queda en local y no se publica.
 
 Los estilos, el script, las imágenes y las fuentes se enlazan con `?v=AAAAMMDD-N`: al cambiarlos,
 sube la versión en `index.html` (y en las `url()` de las fuentes de `css/estilos.css`) para que
-nadie vea la copia vieja de la caché.
+nadie vea la copia vieja de la caché. El tablero claro u oscuro toma la versión de la imagen inicial
+(`main.js` la copia), así que basta con cambiarla en `index.html`.
 
 ## Publicar en GitHub Pages
 
