@@ -941,6 +941,15 @@ kbd {
   text-underline-offset: 4px;
 }
 .ampliar:hover { color: var(--tinta); }
+/* Bajo el portátil: el enlace al vídeo en grande; en el móvil avisa de que se ve mejor en horizontal */
+.panel-medio { min-width: 0; }
+.ampliar-video { margin-top: 26px; }
+.ampliar-nota { display: none; }
+@media (max-width: 600px) {
+  .ampliar-nota { display: inline; font-weight: 500; }
+  /* Una sola línea de texto que puede partirse, no columnas de flex */
+  .ampliar.ampliar-video { display: block; margin-top: 22px; text-align: center; line-height: 1.4; }
+}
 
 .moviles {
   display: flex;
