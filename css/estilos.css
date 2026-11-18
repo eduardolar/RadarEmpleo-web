@@ -878,20 +878,6 @@ kbd {
 }
 .ampliar:hover { color: var(--tinta); }
 
-.modo { display: inline-flex; margin-top: 4px; border: 2px solid var(--tinta); border-radius: 4px; box-shadow: 3px 3px 0 var(--tinta); }
-.modo-boton {
-  min-height: 44px;
-  padding: 8px 18px;
-  font: 700 .9375rem/1 var(--texto);
-  color: var(--tinta);
-  background: var(--blanco);
-  border: 0;
-  cursor: pointer;
-}
-.modo-boton + .modo-boton { border-left: 2px solid var(--tinta); }
-.modo-boton[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
-.modo-boton:focus-visible { outline-offset: -6px; outline-color: var(--lima); }
-
 .moviles {
   display: flex;
   justify-content: center;
@@ -944,7 +930,7 @@ kbd {
   .m-der { transform: rotate(3deg); }
   .movil { box-shadow: 4px 4px 0 #9ca3af; }
 
-  /* Inicio y Estadísticas cambian a la captura del móvil (<picture>): marco de teléfono */
+  /* Estadísticas cambia a la captura del móvil (<picture>): marco de teléfono */
   .con-movil { width: min(250px, 72vw); margin-inline: auto; filter: none; }
   .con-movil .portatil-pantalla {
     padding: 7px;
@@ -954,7 +940,7 @@ kbd {
   .con-movil .portatil-pantalla img { border-radius: 24px; }
   .con-movil .portatil-base { display: none; }
 
-  /* Donde solo hay captura de escritorio, el enlace para verla en grande pasa a ser un botón claro */
+  /* El enlace para ver el vídeo o la captura en grande pasa a ser un botón claro */
   .ampliar {
     display: flex;
     align-items: center;

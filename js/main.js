@@ -219,20 +219,4 @@
   document.querySelectorAll('[data-mover]').forEach((b) => {
     b.addEventListener('click', () => activar(actual() + parseInt(b.dataset.mover, 10), false));
   });
-
-  /* ---------- Tablero claro / oscuro ---------- */
-  const imgTablero = document.getElementById('img-tablero');
-  const ampliarTablero = document.getElementById('ampliar-tablero');
-  // La versión de caché (?v=…) de la imagen inicial vale también para la otra
-  const versionTablero = new URL(imgTablero.src).search;
-  document.querySelectorAll('.modo-boton').forEach((b) => {
-    b.addEventListener('click', () => {
-      const modo = b.dataset.modo;
-      document.querySelectorAll('.modo-boton').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
-      const src = `img/tablero-${modo}.webp${versionTablero}`;
-      imgTablero.src = src;
-      imgTablero.alt = modo === 'claro' ? imgTablero.dataset.altClaro : imgTablero.dataset.altOscuro;
-      ampliarTablero.href = src;
-    });
-  });
 })();
