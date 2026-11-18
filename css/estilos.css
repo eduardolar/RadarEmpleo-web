@@ -2,6 +2,34 @@
    Identidad de la app (docs/DISENO.md): neobrutalismo limpio con grises y lima,
    bordes de 2 px, sombras duras y monoespaciada para cifras y etiquetas. */
 
+/* Fuentes alojadas aquí (fonts/, licencia SIL OFL 1.1 junto a cada una): subconjunto
+   latin de Google Fonts, que trae tildes, ñ, ¿¡ y «». Archivos variables: un solo
+   archivo cubre todos los pesos que se usan. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 700 800;
+  font-display: swap;
+  src: url("../fonts/bricolage-grotesque-latin.woff2?v=20261118-1") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("../fonts/jetbrains-mono-latin.woff2?v=20261118-1") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/roboto-latin.woff2?v=20261118-1") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --lienzo: #0b111e;
   --tinta: #111827;
@@ -246,7 +274,7 @@ main:focus { outline: none; }
   min-height: max(100svh, 680px);
   display: grid;
   place-items: center;
-  padding: 120px 16px 110px;
+  padding: 100px 16px 64px;
   overflow: clip;
   isolation: isolate;
   background:
@@ -292,15 +320,16 @@ main:focus { outline: none; }
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 0 clamp(14px, 2vh, 22px);
   font-family: var(--display);
   font-weight: 800;
   line-height: .82;
   letter-spacing: -.025em;
-  margin-bottom: clamp(22px, 3vw, 36px);
 }
+/* La marca, a tamaño medio (un 40 % menos que antes): el mensaje va en el h1 */
 .titulo-radar {
   display: flex;
-  font-size: clamp(5.2rem, 23vw, 14.5rem);
+  font-size: clamp(3.1rem, min(14vw, 15vh), 8.7rem);
   color: var(--papel);
   text-shadow: .035em .035em 0 var(--insignia-osc);
 }
@@ -313,7 +342,7 @@ main:focus { outline: none; }
   display: inline-block;
   margin-top: .2em;
   padding: .08em .14em .02em;
-  font-size: clamp(4.2rem, 18.5vw, 11.6rem);
+  font-size: clamp(2.5rem, min(11vw, 12vh), 7rem);
   background: var(--lima);
   color: var(--tinta);
   border: 3px solid var(--tinta);
@@ -323,44 +352,83 @@ main:focus { outline: none; }
 }
 
 .hero-eslogan {
-  font: 500 clamp(1.15rem, 2.3vw, 1.6rem)/1.3 var(--mono);
+  font: 500 clamp(.875rem, 1.3vw, 1.0625rem)/1.3 var(--mono);
   color: var(--lima);
-  margin-bottom: 10px;
+  white-space: nowrap;
+  margin-bottom: clamp(16px, 2.4vh, 26px);
 }
-.hero-texto {
-  max-width: 44ch;
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+.hero-titulo {
+  max-width: 24em;
+  font: 800 clamp(1.5rem, 1rem + 1.7vw, 2.6rem)/1.12 var(--display);
+  letter-spacing: -.015em;
+  color: var(--papel);
+  text-wrap: balance;
+  margin-bottom: clamp(16px, 2.2vh, 22px);
+}
+.hero-titulo .lima { color: var(--lima); white-space: nowrap; }
+
+/* Stack en una línea de consola; «CI» es una insignia que lleva a GitHub Actions */
+.hero-stack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px 0;
+  max-width: 40rem;
+  margin-bottom: clamp(20px, 3vh, 30px);
+  font: 500 clamp(.8125rem, 1.1vw, .9375rem)/1.4 var(--mono);
   color: var(--lapiz-osc);
-  margin-bottom: 30px;
 }
+.hero-stack li { white-space: nowrap; }
+.hero-stack li + li::before { content: "·"; content: "·" / ""; margin-inline: .6em; color: var(--lima); }
+.insignia-ci {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 2px 8px;
+  font-weight: 700;
+  color: var(--papel);
+  text-decoration: none;
+  background: var(--seccion-osc);
+  border: 1px solid var(--lapiz-osc);
+  border-radius: 3px;
+}
+.insignia-ci:hover { color: var(--lima); border-color: var(--lima); }
+.insignia-ci-punto { width: 8px; height: 8px; border-radius: 50%; background: var(--lima); }
+
 .hero-botones {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
 }
+.hero-nota {
+  margin: 18px 0 0;
+  font-size: .9375rem;
+  color: var(--lapiz-osc);
+}
 
+/* Pausar: un botón de icono en la esquina del hero, bajo la barra */
 .pausar {
   position: absolute;
-  left: 50%; bottom: 22px;
-  translate: -50% 0;
+  right: 16px; top: 88px;
   z-index: 4;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 6px 12px;
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  padding: 0;
   background: var(--lienzo);
   color: var(--lapiz-osc);
-  font: 500 .8125rem/1 var(--mono);
-  border: 1px solid var(--insignia-osc);
+  font: 500 .875rem/1 var(--mono);
+  border: 1px solid var(--lapiz-osc);
   border-radius: 4px;
   cursor: pointer;
 }
 .pausar:hover { color: var(--lima); border-color: var(--lima); }
 
-/* Elementos flotantes */
-.flotantes { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+/* Elementos flotantes: decorado discreto, el mensaje va delante */
+.flotantes { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .55; }
 .flota,
 .mascota {
   position: absolute;
@@ -542,62 +610,44 @@ main:focus { outline: none; }
   .f-entrevista { top: auto; bottom: 14%; right: -40px; }
 }
 
-/* Móvil: el hero se coloca respecto al centro del título.
-   El bloque de texto va centrado en el hero, así que el título queda unos 154 px
-   por encima de la mitad (--titulo-y); radar y tarjetas se miden desde ahí y
-   no dependen del alto de la pantalla. Las tarjetas van por detrás del texto
-   (z-index 1 frente a 3): asoman bajo las letras sin taparlas. */
+/* Móvil: el hero empieza arriba (la marca bajo la barra) y crece con el texto.
+   El radar se centra en la marca y solo quedan dos piezas pequeñas a su lado,
+   por detrás del texto (z-index 1 frente a 3). */
 @media (max-width: 600px) {
   .hero {
-    --titulo-y: calc(50% - 154px);
-    /* Alto de pantalla, pero con tope: en móviles altos no queda un hueco bajo las tarjetas */
-    min-height: clamp(760px, 100vh, 820px);
-    min-height: clamp(760px, 100svh, 820px);
+    min-height: 0;
+    place-items: start center;
     padding-top: 96px;
-    padding-bottom: 150px;
+    padding-bottom: 56px;
     background:
-      radial-gradient(ellipse 95% 38% at 50% var(--titulo-y), #17233d 0%, rgba(11, 17, 30, 0) 70%),
+      radial-gradient(ellipse 95% 30% at 50% 150px, #17233d 0%, rgba(11, 17, 30, 0) 70%),
       var(--lienzo);
   }
+  .hero-contenido { width: 100%; }
 
-  /* Radar más grande y centrado en el título: el título cabe en el tercer anillo */
-  .radar { width: 240vw; top: var(--titulo-y); }
+  /* Radar grande y centrado en la marca */
+  .radar { width: 240vw; top: 150px; }
 
-  /* Solo cuatro piezas, más pequeñas; lo demás (y todo lo borroso) fuera */
-  .f-vencido, .f-oferta, .f-semana, .f-sello, .f-ctrlz,
-  .p2, .p4, .mascota { display: none; }
+  .f-vencido, .f-oferta, .f-semana, .f-sello, .f-ctrlz, .f-enviada, .f-entrevista,
+  .p2, .p3, .p4, .mascota { display: none; }
   .lejos { filter: none; opacity: 1; }
 
-  /* Arriba a la izquierda, apoyada en la primera R */
-  .f-enviada { left: 10px; right: auto; top: calc(50% - 282px); bottom: auto; --esc: .6; transform-origin: 0 0; }
-  /* Arriba a la derecha, sobre la última R */
-  .f-hecho { left: auto; right: 12px; top: calc(50% - 246px); bottom: auto; --esc: .78; transform-origin: 100% 0; }
-  /* Debajo de los botones, una a cada lado */
-  .f-tasa { left: 12px; right: auto; top: calc(50% + 200px); bottom: auto; --esc: .5; transform-origin: 0 0; }
-  .f-entrevista { left: auto; right: 12px; top: calc(50% + 212px); bottom: auto; --esc: .6; transform-origin: 100% 0; }
+  /* «Hecho» a la izquierda de la marca y la tasa a la derecha, bajo «Pausar» */
+  .f-hecho { left: 10px; right: auto; top: 112px; bottom: auto; --esc: .62; transform-origin: 0 0; }
+  .f-tasa { left: auto; right: 6px; top: 148px; bottom: auto; --esc: .4; transform-origin: 100% 0; }
+  .p1 { left: 6%; top: 206px; }
+  .p5 { left: auto; right: 22%; top: 92px; }
 
-  .p1 { left: 3%; top: calc(50% - 130px); }
-  .p3 { left: auto; right: 6%; top: calc(50% + 150px); bottom: auto; }
-  .p5 { left: 48%; top: calc(50% - 292px); }
+  /* El stack, en dos líneas fijas: sin un «·» suelto al empezar la segunda.
+     El ::before de la lista es el salto: va entre el tercero y el cuarto con «order». */
+  .hero-stack li { order: 1; }
+  .hero-stack li:nth-child(n+4) { order: 3; }
+  .hero-stack::before { content: ""; order: 2; flex-basis: 100%; height: 0; }
+  .hero-stack li:nth-child(4)::before { content: none; }
 
-  .pausar { bottom: 16px; }
-}
-
-/* Móvil estrecho (≤ 380 px): el título es algo más bajo y el texto ocupa tres
-   líneas, así que el título sube y los botones bajan unos 13 px respecto a 390. */
-@media (max-width: 380px) {
-  .hero {
-    min-height: clamp(780px, 100vh, 820px);
-    min-height: clamp(780px, 100svh, 820px);
-  }
-  /* Arriba: por encima de la línea de RADAR, para que se lean «Hecho» y la etiqueta «Enviada» */
-  .f-enviada { top: calc(50% - 298px); --esc: .52; }
-  .f-hecho { top: calc(50% - 288px); }
-  /* Abajo: al menos 12 px de aire con «Cómo funciona» */
-  .f-tasa { top: calc(50% + 226px); }
-  .f-entrevista { top: calc(50% + 228px); }
-  /* En una sola línea («left: 50%» le dejaba solo media pantalla de ancho) */
-  .pausar { white-space: nowrap; min-height: 44px; }
+  /* Los dos botones, a ancho completo y uno bajo el otro */
+  .hero-botones { flex-direction: column; align-items: stretch; width: 100%; gap: 14px; }
+  .hero-botones .boton { width: 100%; }
 }
 
 /* ---------- Secciones ---------- */
@@ -692,6 +742,8 @@ kbd {
 }
 .panel[hidden] { display: none; }
 .panel:focus-visible { outline-offset: 8px; }
+/* Con el foco (tabindex=0), que no quede bajo la barra fija */
+.panel { scroll-margin-top: 96px; }
 .panel.entra { animation: aparecer .5s cubic-bezier(.2, .7, .2, 1); }
 @keyframes aparecer { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
@@ -998,16 +1050,18 @@ kbd {
   .pie-rejilla { grid-template-columns: 1fr; gap: 26px; }
 }
 
-/* ---------- Aparición al hacer scroll ---------- */
-.js .revela { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
-.js .revela.visible { opacity: 1; transform: none; }
-.js .cifra.revela.visible:nth-child(2) { transform: translateX(clamp(0px, 3vw, 36px)); }
-@media (max-width: 960px) { .js .cifra.revela.visible:nth-child(2) { transform: none; } }
-.js .cifra.revela:nth-child(2) { transition-delay: .1s; }
-.js .cifra.revela:nth-child(3) { transition-delay: .2s; }
-.js .decision.revela:nth-child(2) { transition-delay: .08s; }
-.js .decision.revela:nth-child(3) { transition-delay: .16s; }
-.js .decision.revela:nth-child(4) { transition-delay: .24s; }
+/* ---------- Aparición al hacer scroll ----------
+   El contenido se ve siempre (sin JS, al imprimir o en una captura de página
+   completa). Solo si main.js pone «anima-revela» en <html>, cada bloque entra con
+   una animación al asomar; usa «translate» para no pisar el «transform» propio. */
+.anima-revela .revela.visible { animation: revela-entra .7s cubic-bezier(.2, .7, .2, 1) both; }
+.anima-revela .cifra.revela.visible:nth-child(2) { animation-delay: .1s; }
+.anima-revela .cifra.revela.visible:nth-child(3) { animation-delay: .2s; }
+.anima-revela .decision.revela.visible:nth-child(2) { animation-delay: .08s; }
+.anima-revela .decision.revela.visible:nth-child(3) { animation-delay: .16s; }
+.anima-revela .decision.revela.visible:nth-child(4) { animation-delay: .24s; }
+.anima-revela .revela.ya-visible { animation: none; }
+@keyframes revela-entra { from { opacity: 0; translate: 0 28px; } to { opacity: 1; translate: 0 0; } }
 
 /* Animaciones en pausa (botón del hero) */
 .pausado .radar-barrido,
@@ -1020,8 +1074,7 @@ kbd {
   .radar-barrido { animation: none; transform: rotate(35deg); }
   .vaiven, .franja-cinta, .panel.entra { animation: none; }
   .franja-cinta { transform: translateX(-12%); }
-  .js .revela, .js .revela.visible { opacity: 1; transform: none; transition: none; }
-  .js .cifra.revela.visible:nth-child(2) { transform: translateX(clamp(0px, 3vw, 36px)); }
+  .anima-revela .revela.visible { animation: none; }
   .boton, .flecha, .pestanas-lista [role="tab"] { transition: none; }
   .pausar { display: none; }
 }

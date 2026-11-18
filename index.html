@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RadarEmpleo · ¿La de trabajar te la sabes?</title>
-  <meta name="description" content="RadarEmpleo es la app con la que Eduardo Lara Navarro lleva su búsqueda de empleo: tablero por estados, recordatorios, estadísticas y rastreos semanales. Hecha con .NET 10 y Angular 22.">
+  <title>RadarEmpleo: app full stack .NET 10 + Angular para gestionar la búsqueda de empleo</title>
+  <meta name="description" content="¿La de trabajar te la sabes? RadarEmpleo es la app con la que Eduardo Lara Navarro lleva su búsqueda de empleo: tablero por estados, recordatorios, estadísticas y un radar semanal de ofertas con Claude. Hecha con .NET 10 y Angular 22.">
   <meta name="theme-color" content="#0b111e">
+  <link rel="canonical" href="https://eduardolar.github.io/RadarEmpleo-web/">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="RadarEmpleo">
+  <meta property="og:locale" content="es_ES">
   <meta property="og:url" content="https://eduardolar.github.io/RadarEmpleo-web/">
   <meta property="og:image" content="https://eduardolar.github.io/RadarEmpleo-web/img/og-radarempleo.png">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="640">
   <meta property="og:image:alt" content="RadarEmpleo: la pantalla Inicio de la app, en grises y lima">
   <meta name="twitter:card" content="summary_large_image">
-  <meta property="og:title" content="RadarEmpleo · ¿La de trabajar te la sabes?">
-  <meta property="og:description" content="La app con la que llevo mi búsqueda de empleo. .NET 10 + Angular 22, con más de 2.000 tests.">
-  <link rel="icon" href="img/logo-radarempleo.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <meta property="og:title" content="RadarEmpleo: app full stack .NET 10 + Angular para gestionar la búsqueda de empleo">
+  <meta property="og:description" content="¿La de trabajar te la sabes? La app con la que llevo mi búsqueda de empleo: tablero, recordatorios, estadísticas y un radar semanal de ofertas con Claude. .NET 10 + Angular 22, con más de 2.000 tests.">
+  <link rel="icon" href="img/logo-radarempleo.svg?v=20261118-1" type="image/svg+xml">
+  <link rel="preload" href="fonts/bricolage-grotesque-latin.woff2?v=20261118-1" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilos.css?v=20261118-2">
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -29,7 +29,7 @@
   <header class="nav-envoltura">
     <nav class="nav" aria-label="Principal">
       <a class="nav-marca" href="#inicio" aria-label="RadarEmpleo, volver arriba">
-        <img src="img/logo-radarempleo.svg" alt="" width="34" height="34">
+        <img src="img/logo-radarempleo.svg?v=20261118-1" alt="" width="34" height="34">
         <span class="nav-marca-texto" aria-hidden="true">Radar<span>Empleo</span></span>
       </a>
       <button class="nav-menu" type="button" aria-expanded="false" aria-controls="nav-enlaces">
@@ -43,7 +43,7 @@
         <li><a href="#hablamos">¿Hablamos?</a></li>
       </ul>
       <a class="boton boton-lima boton-peque nav-accion" href="https://github.com/eduardolar/RadarEmpleo" target="_blank" rel="noopener">
-        Código <span aria-hidden="true">→</span><span class="sr-only"> (se abre en otra pestaña)</span>
+        GitHub <span aria-hidden="true">→</span><span class="sr-only"> (se abre en otra pestaña)</span>
       </a>
     </nav>
   </header>
@@ -136,22 +136,35 @@
         <span class="flota punto-lima p5" data-prof="0.8"></span>
       </div>
 
+      <!-- Arriba a la derecha: va antes del contenido para que el orden de tabulación siga al visual -->
+      <button class="pausar" type="button" aria-label="Pausar animaciones" title="Pausar animaciones"><span aria-hidden="true">❚❚</span></button>
+
       <div class="hero-contenido">
-        <h1 class="titulo" id="titulo-hero">
+        <p class="titulo">
           <span class="sr-only">RadarEmpleo</span>
           <span class="titulo-radar" aria-hidden="true"><span style="--r:-8deg;--y:.13em">R</span><span style="--r:-4deg;--y:.035em">A</span><span style="--r:0deg;--y:0em">D</span><span style="--r:4deg;--y:.035em">A</span><span style="--r:8deg;--y:.13em">R</span></span>
           <span class="titulo-empleo" aria-hidden="true">EMPLEO</span>
-        </h1>
+        </p>
         <p class="hero-eslogan"><span aria-hidden="true">// </span>¿La de trabajar te la sabes?</p>
-        <p class="hero-texto">La app con la que llevo mi búsqueda de empleo. La hice yo, con .NET&nbsp;10 y Angular&nbsp;22.</p>
+        <h1 class="hero-titulo" id="titulo-hero">Mi búsqueda de empleo, <span class="lima">en una app</span>: tablero, recordatorios, estadísticas y un radar semanal de ofertas con Claude.</h1>
+        <ul class="hero-stack" aria-label="Stack">
+          <li>ASP.NET Core 10</li>
+          <li>Angular 22</li>
+          <li>EF Core</li>
+          <li>+2.000 tests</li>
+          <li><a class="insignia-ci" href="https://github.com/eduardolar/RadarEmpleo/actions" target="_blank" rel="noopener"><span class="insignia-ci-punto" aria-hidden="true"></span>CI<span class="sr-only"> en GitHub Actions (se abre en otra pestaña)</span></a></li>
+        </ul>
         <div class="hero-botones">
-          <a class="boton boton-lima" href="https://github.com/eduardolar/RadarEmpleo" target="_blank" rel="noopener">Ver el código <span aria-hidden="true">→</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
-          <a class="boton boton-borde" href="#que-hace">Cómo funciona</a>
+          <a class="boton boton-lima" href="https://github.com/eduardolar/RadarEmpleo" target="_blank" rel="noopener">
+            <svg class="icono" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+            Ver el código en GitHub<span class="sr-only"> (se abre en otra pestaña)</span>
+          </a>
+          <a class="boton boton-borde" href="#pantallas">Verla en 30&nbsp;s <span aria-hidden="true">↓</span></a>
         </div>
+        <p class="hero-nota">Sin demo en línea: la app funciona en local. Abajo la tienes en capturas reales.</p>
       </div>
 
-      <img class="mascota" src="img/logo-radarempleo.svg" alt="" width="150" height="150" data-prof="0.3">
-      <button class="pausar" type="button"><span aria-hidden="true">❚❚</span> <span class="pausar-texto">Pausar animaciones</span></button>
+      <img class="mascota" src="img/logo-radarempleo.svg?v=20261118-1" alt="" width="150" height="150" data-prof="0.3">
     </section>
 
     <!-- QUÉ HACE -->
@@ -163,7 +176,7 @@
           <p class="entradilla">Son las que uso cada día. Las capturas son de la app de verdad, con datos de ejemplo.</p>
         </header>
 
-        <div class="pestanas revela">
+        <div class="pestanas revela" id="pantallas">
           <div class="pestanas-barra">
             <button class="flecha" type="button" data-mover="-1" aria-label="Pantalla anterior">
               <span aria-hidden="true">←</span>
@@ -185,8 +198,8 @@
             <figure class="portatil con-movil">
               <div class="portatil-pantalla">
                 <picture>
-                  <source media="(max-width: 600px)" srcset="img/movil-inicio.webp" width="620" height="1377">
-                  <img src="img/inicio-escritorio.webp" width="1600" height="988" loading="lazy" decoding="async"
+                  <source media="(max-width: 600px)" srcset="img/movil-inicio.webp?v=20261118-1" width="620" height="1377">
+                  <img src="img/inicio-escritorio.webp?v=20261118-1" width="1600" height="988"
                        alt="Pantalla Inicio en modo oscuro: los recordatorios para hoy, uno marcado como «Vencido · jue 12 nov», cada uno con los botones Hecho y Posponer. En el ordenador se ve además, a la derecha, el resumen con 12 candidaturas activas, un 33 % de tasa de respuesta y la semana del 9 al 15 de noviembre; en el móvil, el resumen va plegado y encima están el botón «Nuevo recordatorio» y los filtros por tipo.">
                 </picture>
               </div>
@@ -198,7 +211,7 @@
               <p>Al abrirla veo lo vencido y lo de hoy: seguimientos, entrevistas y plazos. Cada recordatorio tiene <strong>Hecho</strong> y <strong>Posponer</strong>, y si me equivoco, <strong>Deshacer</strong> o <kbd>Ctrl</kbd>+<kbd>Z</kbd>.</p>
               <p>Debajo, los próximos siete días y las enviadas que siguen sin respuesta.</p>
               <ul class="etiquetas"><li>Recordatorios</li><li>Hecho</li><li>Posponer</li><li>Deshacer</li></ul>
-              <a class="ampliar" href="img/inicio-escritorio.webp" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+              <a class="ampliar" href="img/inicio-escritorio.webp?v=20261118-1" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
             </div>
           </div>
 
@@ -206,7 +219,7 @@
           <div class="panel" role="tabpanel" id="panel-tablero" aria-labelledby="tab-tablero" tabindex="0" hidden>
             <figure class="portatil">
               <div class="portatil-pantalla">
-                <img id="img-tablero" src="img/tablero-oscuro.webp" width="1600" height="1000" loading="lazy" decoding="async"
+                <img id="img-tablero" src="img/tablero-oscuro.webp?v=20261118-1" width="1600" height="1000" loading="lazy" decoding="async"
                      data-alt-oscuro="Tablero en modo oscuro con las candidaturas en columnas por estado: Detectada, Preparada, Enviada y Entrevista abiertas, y Oferta, Descartada y Cerrada plegadas a un lado. Cada tarjeta lleva la empresa, el puesto, la pega y los días que lleva en ese estado."
                      data-alt-claro="El mismo tablero en modo claro: columnas por estado con tarjetas blancas de borde negro y sombra dura, y las columnas Oferta, Descartada y Cerrada plegadas."
                      alt="Tablero en modo oscuro con las candidaturas en columnas por estado: Detectada, Preparada, Enviada y Entrevista abiertas, y Oferta, Descartada y Cerrada plegadas a un lado. Cada tarjeta lleva la empresa, el puesto, la pega y los días que lleva en ese estado.">
@@ -222,7 +235,7 @@
                 <button type="button" class="modo-boton" data-modo="oscuro" aria-pressed="true">Oscuro</button>
                 <button type="button" class="modo-boton" data-modo="claro" aria-pressed="false">Claro</button>
               </div>
-              <a class="ampliar" id="ampliar-tablero" href="img/tablero-oscuro.webp" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+              <a class="ampliar" id="ampliar-tablero" href="img/tablero-oscuro.webp?v=20261118-1" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
             </div>
           </div>
 
@@ -231,8 +244,8 @@
             <figure class="portatil con-movil">
               <div class="portatil-pantalla">
                 <picture>
-                  <source media="(max-width: 600px)" srcset="img/movil-estadisticas.webp" width="620" height="1377">
-                  <img src="img/estadisticas-escritorio.webp" width="1600" height="1244" loading="lazy" decoding="async"
+                  <source media="(max-width: 600px)" srcset="img/movil-estadisticas.webp?v=20261118-1" width="620" height="1377">
+                  <img src="img/estadisticas-escritorio.webp?v=20261118-1" width="1600" height="1244" loading="lazy" decoding="async"
                        alt="Pantalla Estadísticas en modo oscuro: barras con las 16 candidaturas por estado y las enviadas por semana durante ocho semanas, con la cifra al lado de cada barra. En el ordenador caben también la tasa de respuesta (3 de 9, un 33 %, con 7 días de media hasta la respuesta) y los motivos de descarte, experiencia e inglés.">
                 </picture>
               </div>
@@ -244,7 +257,7 @@
               <p>Candidaturas por estado, enviadas por semana, tasa de respuesta, días de media hasta que contestan y por qué me descartan.</p>
               <p>Cada cifra se lee también como texto, sin depender del color.</p>
               <ul class="etiquetas"><li>Por estado</li><li>Por semana</li><li>Tasa de respuesta</li><li>Descartes</li></ul>
-              <a class="ampliar" href="img/estadisticas-escritorio.webp" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+              <a class="ampliar" href="img/estadisticas-escritorio.webp?v=20261118-1" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
             </div>
           </div>
 
@@ -252,7 +265,7 @@
           <div class="panel" role="tabpanel" id="panel-rastreos" aria-labelledby="tab-rastreos" tabindex="0" hidden>
             <figure class="portatil">
               <div class="portatil-pantalla">
-                <img src="img/rastreos-escritorio.webp" width="1600" height="1000" loading="lazy" decoding="async"
+                <img src="img/rastreos-escritorio.webp?v=20261118-1" width="1600" height="1000" loading="lazy" decoding="async"
                      alt="Pantalla Rastreos en modo oscuro: a la izquierda, el informe del rastreo con las ofertas recomendadas; a la derecha, las ofertas con los botones «Pasar al tablero» y «No me interesa». Una de ellas avisa: «Puede que ya la tengas», porque la empresa ya tiene una candidatura en el tablero.">
               </div>
               <div class="portatil-base" aria-hidden="true"></div>
@@ -263,7 +276,7 @@
               <p>Cada semana entra un informe con las ofertas que encajan. Paso al tablero las que me interesan y el resto se queda fuera.</p>
               <p>Si la empresa ya tiene una candidatura, avisa antes de duplicarla: <q>Puede que ya la tengas</q>.</p>
               <ul class="etiquetas"><li>Informe semanal</li><li>Aviso de duplicadas</li><li>Pasar al tablero</li></ul>
-              <a class="ampliar" href="img/rastreos-escritorio.webp" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+              <a class="ampliar" href="img/rastreos-escritorio.webp?v=20261118-1" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
             </div>
           </div>
 
@@ -271,15 +284,15 @@
           <div class="panel panel-movil" role="tabpanel" id="panel-movil" aria-labelledby="tab-movil" tabindex="0" hidden>
             <div class="moviles">
               <figure class="movil m-izq">
-                <img src="img/movil-inicio.webp" width="620" height="1377" loading="lazy" decoding="async"
+                <img src="img/movil-inicio.webp?v=20261118-1" width="620" height="1377" loading="lazy" decoding="async"
                      alt="Inicio en el móvil, en modo oscuro: el botón «Nuevo recordatorio», los filtros por tipo y los recordatorios de hoy con Hecho y Posponer.">
               </figure>
               <figure class="movil m-centro">
-                <img src="img/movil-ficha.webp" width="540" height="1202" loading="lazy" decoding="async"
+                <img src="img/movil-ficha.webp?v=20261118-1" width="540" height="1202" loading="lazy" decoding="async"
                      alt="Ficha de una candidatura en el móvil, en modo claro: el puesto, el estado Enviada con su sello de goma «ENVIADA 31 oct 2026», los botones para cambiar de estado y el apartado «CV y carta».">
               </figure>
               <figure class="movil m-der">
-                <img src="img/movil-estadisticas.webp" width="620" height="1377" loading="lazy" decoding="async"
+                <img src="img/movil-estadisticas.webp?v=20261118-1" width="620" height="1377" loading="lazy" decoding="async"
                      alt="Estadísticas en el móvil, en modo oscuro: candidaturas por estado y enviadas por semana, con la cifra al lado de cada barra.">
               </figure>
             </div>
@@ -321,12 +334,12 @@
           <li class="cifra revela">
             <span class="cifra-num" data-cuenta="2000" data-prefijo="+">+2.000</span>
             <span class="cifra-nombre">tests automáticos</span>
-            <span class="cifra-nota">unos 1.175 en .NET y 996 en Angular</span>
+            <span class="cifra-nota">unos 1.690 casos xUnit en .NET y unos 880 specs en Angular</span>
           </li>
           <li class="cifra revela">
-            <span class="cifra-num" data-cuenta="6">6</span>
+            <span class="cifra-num" data-cuenta="7">7</span>
             <span class="cifra-nombre">fases terminadas</span>
-            <span class="cifra-nota">y la séptima, en marcha</span>
+            <span class="cifra-nota">de la F0 a la F6; la F7 (agentes de Claude), en marcha</span>
           </li>
           <li class="cifra revela">
             <span class="cifra-num" data-cuenta="7">7</span>
@@ -390,7 +403,7 @@
         <div class="hero-botones">
           <a class="boton boton-lima" href="https://github.com/eduardolar/RadarEmpleo" target="_blank" rel="noopener">
             <svg class="icono" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
-            Ver el código <span aria-hidden="true">→</span><span class="sr-only"> (se abre en otra pestaña)</span>
+            Ver el código en GitHub<span class="sr-only"> (se abre en otra pestaña)</span>
           </a>
           <a class="boton boton-borde" href="https://www.linkedin.com/in/eduardo-lara-navarro-007138100/" target="_blank" rel="noopener">
             <svg class="icono" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
@@ -404,7 +417,7 @@
   <footer class="pie">
     <div class="contenedor pie-rejilla">
       <div class="pie-marca">
-        <img src="img/logo-radarempleo.svg" alt="" width="44" height="44" loading="lazy">
+        <img src="img/logo-radarempleo.svg?v=20261118-1" alt="" width="44" height="44" loading="lazy">
         <div>
           <p class="pie-nombre">Radar<span>Empleo</span></p>
           <p class="pie-eslogan">// ¿La de trabajar te la sabes?</p>
@@ -429,10 +442,10 @@
     </div>
     <div class="contenedor pie-notas">
       <p>Capturas con datos de ejemplo: las empresas y las ofertas son inventadas.</p>
-      <p>Web de presentación del proyecto · 2026</p>
+      <p>Web de presentación del proyecto · Actualizado: <time datetime="2026-11">nov 2026</time></p>
     </div>
   </footer>
 
-  <script src="js/main.js" defer></script>
+  <script src="js/main.js?v=20261118-2" defer></script>
 </body>
 </html>

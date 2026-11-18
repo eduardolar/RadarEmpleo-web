@@ -106,11 +106,12 @@
 
   /* ---------- Pausar las animaciones en bucle ---------- */
   const botonPausa = document.querySelector('.pausar');
-  const textoPausa = botonPausa.querySelector('.pausar-texto');
   const iconoPausa = botonPausa.querySelector('[aria-hidden]');
   botonPausa.addEventListener('click', () => {
     const pausado = raiz.classList.toggle('pausado');
-    textoPausa.textContent = pausado ? 'Reanudar animaciones' : 'Pausar animaciones';
+    const texto = pausado ? 'Reanudar animaciones' : 'Pausar animaciones';
+    botonPausa.setAttribute('aria-label', texto);
+    botonPausa.title = texto;
     iconoPausa.textContent = pausado ? '▶' : '❚❚';
   });
 
@@ -134,15 +135,46 @@
 
   const revelables = [...document.querySelectorAll('.revela')];
   if ('IntersectionObserver' in window && !movReducido.matches) {
-    const obs = new IntersectionObserver((entradas) => {
-      entradas.forEach((en) => {
-        if (!en.isIntersecting) return;
-        en.target.classList.add('visible');
-        en.target.querySelectorAll('[data-cuenta]').forEach(contar);
-        obs.unobserve(en.target);
+    // Lo que ya está en pantalla (recarga a mitad, entrar con #ancla) se queda quieto.
+    // Se espera a «load» y dos fotogramas: entonces el navegador ya ha devuelto el
+    // scroll a donde estaba; hasta ese momento todo se ve sin animar. El salto a un
+    // #ancla es suave y empieza después, así que con ancla se fija todo lo que queda
+    // por encima de ella o en su misma pantalla.
+    const enPantalla = (el) => {
+      const r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    };
+    const fijar = (el) => {
+      el.classList.add('visible', 'ya-visible');
+      el.querySelectorAll('[data-cuenta]').forEach((c) => {
+        c.textContent = (c.dataset.prefijo || '') + formatear(parseInt(c.dataset.cuenta, 10));
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
-    revelables.forEach((el) => obs.observe(el));
+    };
+    const empezar = () => {
+      let id = '';
+      try { id = decodeURIComponent(location.hash.slice(1)); } catch { /* ancla mal escrita */ }
+      const ancla = id ? document.getElementById(id) : null;
+      const limite = ancla ? ancla.getBoundingClientRect().top + window.innerHeight : -Infinity;
+      const pendientes = revelables.filter((el) => {
+        if (!enPantalla(el) && el.getBoundingClientRect().top >= limite) return true;
+        fijar(el);
+        return false;
+      });
+      // El contenido se ve sin esta clase; con ella, cada bloque entra animado al asomar
+      raiz.classList.add('anima-revela');
+      const obs = new IntersectionObserver((entradas) => {
+        entradas.forEach((en) => {
+          if (!en.isIntersecting) return;
+          obs.unobserve(en.target);
+          en.target.classList.add('visible');
+          en.target.querySelectorAll('[data-cuenta]').forEach(contar);
+        });
+      }, { threshold: 0 });
+      pendientes.forEach((el) => obs.observe(el));
+    };
+    const trasDosFotogramas = () => requestAnimationFrame(() => requestAnimationFrame(empezar));
+    if (document.readyState === 'complete') trasDosFotogramas();
+    else window.addEventListener('load', trasDosFotogramas, { once: true });
   } else {
     revelables.forEach((el) => el.classList.add('visible'));
   }
@@ -191,11 +223,13 @@
   /* ---------- Tablero claro / oscuro ---------- */
   const imgTablero = document.getElementById('img-tablero');
   const ampliarTablero = document.getElementById('ampliar-tablero');
+  // La versión de caché (?v=…) de la imagen inicial vale también para la otra
+  const versionTablero = new URL(imgTablero.src).search;
   document.querySelectorAll('.modo-boton').forEach((b) => {
     b.addEventListener('click', () => {
       const modo = b.dataset.modo;
       document.querySelectorAll('.modo-boton').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
-      const src = `img/tablero-${modo}.webp`;
+      const src = `img/tablero-${modo}.webp${versionTablero}`;
       imgTablero.src = src;
       imgTablero.alt = modo === 'claro' ? imgTablero.dataset.altClaro : imgTablero.dataset.altOscuro;
       ampliarTablero.href = src;
