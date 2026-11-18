@@ -306,14 +306,21 @@ main:focus { outline: none; }
 }
 @keyframes girar { to { transform: rotate(360deg); } }
 
+/* Solo el texto se mueve y se funde con el parallax de main.js; el vídeo se queda quieto */
 .hero-contenido {
   position: relative;
   z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.hero-texto {
+  will-change: transform;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  will-change: transform;
 }
 
 .titulo {
@@ -426,9 +433,133 @@ main:focus { outline: none; }
   cursor: pointer;
 }
 .pausar:hover { color: var(--lima); border-color: var(--lima); }
+/* Con sitio, el botón global dice «Pausar»/«Reanudar» para no confundirlo con el de cada vídeo */
+.pausar-texto { display: none; }
+@media (min-width: 768px) {
+  .pausar { display: flex; align-items: center; gap: 8px; width: auto; padding: 0 14px; font-size: .8125rem; }
+  .pausar-texto { display: inline; font: 700 .875rem/1 var(--texto); }
+}
 
-/* Elementos flotantes: decorado discreto, el mensaje va delante */
-.flotantes { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .55; }
+/* ---------- Vídeos de la app ----------
+   El póster va de fondo del propio <video> y no en «poster»: así solo se descarga el
+   de los vídeos que se ven (el de un panel oculto o el del otro marco del hero, no).
+   width/height en el HTML y aspect-ratio aquí: el hueco está reservado desde el principio. */
+.video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1280 / 800;
+  background-color: var(--gris-claro);
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 2px;
+}
+.video-movil { aspect-ratio: 720 / 1558; }
+
+/* Botón de cada vídeo (main.js lo muestra): pequeño en una esquina libre mientras se
+   reproduce y un ▶ grande en el centro del póster cuando no va a arrancar solo.
+   En el portátil va abajo a la izquierda, sobre la parte vacía del menú lateral de la
+   app, para no tapar las columnas; en el teléfono, arriba a la derecha. */
+.video-marco,
+.video-marco .portatil-pantalla { position: relative; }
+.video-boton {
+  position: absolute;
+  left: calc(clamp(6px, 1.1vw, 14px) + 6px);
+  bottom: calc(clamp(8px, 1.4vw, 18px) + 6px);
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 48px; height: 48px;
+  padding: 0;
+  font: 700 1rem/1 var(--mono);
+  color: var(--papel);
+  background: var(--tinta);
+  border: 2px solid var(--lapiz-osc);
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 var(--sombra-osc);
+  cursor: pointer;
+}
+.movil .video-boton { left: auto; right: 12px; bottom: auto; top: 12px; }
+.video-boton[hidden] { display: none; }
+.video-boton:hover { color: var(--lima); border-color: var(--lima); }
+/* Foco: anillo oscuro con doble borde lima, visible sobre el póster claro y sobre el fondo oscuro */
+.video-boton:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 8px var(--lima);
+}
+.video-marco.parado .video-boton {
+  left: 50%; top: 50%; right: auto; bottom: auto;
+  translate: -50% -50%;
+  width: 72px; height: 72px;
+  font-size: 1.75rem;
+  color: var(--tinta);
+  background: var(--lima);
+  border-color: var(--tinta);
+  box-shadow: 5px 5px 0 var(--tinta);
+}
+.video-marco.parado .video-boton:hover { color: var(--tinta); background: var(--papel); }
+.video-marco.parado .video-boton:focus-visible { box-shadow: 0 0 0 8px var(--lima); }
+/* Teléfono pequeño de la pestaña Móvil: el ▶ un poco más contenido */
+.m-centro.parado .video-boton { width: 56px; height: 56px; font-size: 1.4rem; }
+@media (max-width: 600px) {
+  .video-marco.parado .video-boton { width: 56px; height: 56px; font-size: 1.4rem; }
+}
+
+/* Hero: el vídeo en el portátil solo en escritorio. En el móvil, una imagen fija del
+   teléfono bajo los botones: se ve la cabecera de la ficha con el sello y la parte de
+   abajo se funde con el fondo del hero (nada de corte seco). */
+.portatil-hero { display: none; }
+.hero-telefono {
+  --ancho: min(250px, 66vw);
+  width: calc(var(--ancho) + 10px); /* sitio para la sombra */
+  height: calc(var(--ancho) * 1.3);
+  margin: 40px auto 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent);
+  mask-image: linear-gradient(to bottom, #000 68%, transparent);
+}
+.movil.movil-hero {
+  width: var(--ancho);
+  padding: 8px;
+  border-color: var(--lapiz-osc);
+  border-radius: 32px;
+  box-shadow: 6px 6px 0 var(--sombra-osc);
+}
+.movil.movil-hero img { border-radius: 24px; background: var(--gris-claro); }
+
+@media (max-width: 1023px) {
+  .hero { min-height: 0; place-items: start center; padding-top: 112px; padding-bottom: 0; }
+}
+
+@media (min-width: 1024px) {
+  .hero { padding-inline: clamp(24px, 4vw, 64px); }
+  .hero-contenido {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: clamp(32px, 4vw, 72px);
+    width: min(1400px, 100%);
+  }
+  .hero-texto,
+  .titulo { align-items: flex-start; text-align: left; }
+  .titulo-radar { font-size: clamp(3.1rem, min(7.2vw, 13vh), 7.4rem); }
+  .titulo-empleo { font-size: clamp(2.5rem, min(5.8vw, 10.5vh), 6rem); }
+  .hero-titulo { max-width: 22em; font-size: clamp(1.4rem, .7rem + 1.25vw, 2.25rem); }
+  .hero-stack,
+  .hero-botones { justify-content: flex-start; }
+
+  .portatil-hero { display: block; filter: drop-shadow(8px 8px 0 var(--sombra-osc)); }
+  .portatil-hero .portatil-pantalla { border-color: var(--lapiz-osc); }
+  .hero-telefono { display: none; }
+
+  /* Con el texto a la izquierda y el vídeo a la derecha, fuera las piezas que les caen encima */
+  .f-enviada, .f-tasa, .f-ctrlz, .f-semana, .f-entrevista { display: none; }
+}
+
+/* Elementos flotantes: decorado discreto, el mensaje y el vídeo van delante */
+.flotantes { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .4; }
 .flota,
 .mascota {
   position: absolute;
@@ -618,7 +749,6 @@ main:focus { outline: none; }
     min-height: 0;
     place-items: start center;
     padding-top: 96px;
-    padding-bottom: 56px;
     background:
       radial-gradient(ellipse 95% 30% at 50% 150px, #17233d 0%, rgba(11, 17, 30, 0) 70%),
       var(--lienzo);
@@ -638,16 +768,19 @@ main:focus { outline: none; }
   .p1 { left: 6%; top: 206px; }
   .p5 { left: auto; right: 22%; top: 92px; }
 
-  /* El stack, en dos líneas fijas: sin un «·» suelto al empezar la segunda.
-     El ::before de la lista es el salto: va entre el tercero y el cuarto con «order». */
+  /* Los dos botones, a ancho completo y uno bajo el otro */
+  .hero-botones { flex-direction: column; align-items: stretch; width: 100%; gap: 14px; }
+  .hero-botones .boton { width: 100%; }
+}
+
+/* El stack, en dos líneas fijas donde no cabe en una (el móvil y la columna del hero
+   partido, que en ningún ancho le deja sitio de sobra): sin un «·» suelto al empezar la
+   segunda. El ::before de la lista es el salto: va entre el tercero y el cuarto con «order». */
+@media (max-width: 600px), (min-width: 1024px) {
   .hero-stack li { order: 1; }
   .hero-stack li:nth-child(n+4) { order: 3; }
   .hero-stack::before { content: ""; order: 2; flex-basis: 100%; height: 0; }
   .hero-stack li:nth-child(4)::before { content: none; }
-
-  /* Los dos botones, a ancho completo y uno bajo el otro */
-  .hero-botones { flex-direction: column; align-items: stretch; width: 100%; gap: 14px; }
-  .hero-botones .boton { width: 100%; }
 }
 
 /* ---------- Secciones ---------- */
@@ -808,20 +941,15 @@ kbd {
   text-underline-offset: 4px;
 }
 .ampliar:hover { color: var(--tinta); }
-
-.modo { display: inline-flex; margin-top: 4px; border: 2px solid var(--tinta); border-radius: 4px; box-shadow: 3px 3px 0 var(--tinta); }
-.modo-boton {
-  min-height: 44px;
-  padding: 8px 18px;
-  font: 700 .9375rem/1 var(--texto);
-  color: var(--tinta);
-  background: var(--blanco);
-  border: 0;
-  cursor: pointer;
+/* Bajo el portátil: el enlace al vídeo en grande; en el móvil avisa de que se ve mejor en horizontal */
+.panel-medio { min-width: 0; }
+.ampliar-video { margin-top: 26px; }
+.ampliar-nota { display: none; }
+@media (max-width: 600px) {
+  .ampliar-nota { display: inline; font-weight: 500; }
+  /* Una sola línea de texto que puede partirse, no columnas de flex */
+  .ampliar.ampliar-video { display: block; margin-top: 22px; text-align: center; line-height: 1.4; }
 }
-.modo-boton + .modo-boton { border-left: 2px solid var(--tinta); }
-.modo-boton[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
-.modo-boton:focus-visible { outline-offset: -6px; outline-color: var(--lima); }
 
 .moviles {
   display: flex;
@@ -838,7 +966,8 @@ kbd {
   border-radius: clamp(18px, 2.6vw, 34px);
   box-shadow: 7px 7px 0 #9ca3af;
 }
-.movil img { display: block; width: 100%; border-radius: clamp(13px, 2vw, 26px); }
+.movil img,
+.movil .video { display: block; width: 100%; border-radius: clamp(13px, 2vw, 26px); }
 .m-izq, .m-der { width: clamp(98px, 18vw, 230px); }
 .m-centro { width: clamp(120px, 21vw, 270px); margin-bottom: 26px; }
 .m-izq { transform: rotate(-4deg); }
@@ -874,7 +1003,7 @@ kbd {
   .m-der { transform: rotate(3deg); }
   .movil { box-shadow: 4px 4px 0 #9ca3af; }
 
-  /* Inicio y Estadísticas cambian a la captura del móvil (<picture>): marco de teléfono */
+  /* Estadísticas cambia a la captura del móvil (<picture>): marco de teléfono */
   .con-movil { width: min(250px, 72vw); margin-inline: auto; filter: none; }
   .con-movil .portatil-pantalla {
     padding: 7px;
@@ -884,7 +1013,7 @@ kbd {
   .con-movil .portatil-pantalla img { border-radius: 24px; }
   .con-movil .portatil-base { display: none; }
 
-  /* Donde solo hay captura de escritorio, el enlace para verla en grande pasa a ser un botón claro */
+  /* El enlace para ver el vídeo o la captura en grande pasa a ser un botón claro */
   .ampliar {
     display: flex;
     align-items: center;

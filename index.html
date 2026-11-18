@@ -20,7 +20,10 @@
   <meta property="og:description" content="¿La de trabajar te la sabes? La app con la que llevo mi búsqueda de empleo: tablero, recordatorios, estadísticas y un radar semanal de ofertas con Claude. .NET 10 + Angular 22, con más de 2.000 tests.">
   <link rel="icon" href="img/logo-radarempleo.svg?v=20261118-1" type="image/svg+xml">
   <link rel="preload" href="fonts/bricolage-grotesque-latin.woff2?v=20261118-1" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/estilos.css?v=20261118-2">
+  <link rel="stylesheet" href="css/estilos.css?v=20261118-5">
+  <!-- Sin JS: los vídeos no se reproducen y el navegador les pondría sus controles encima;
+       en su lugar se ve la imagen del póster (en <noscript>, solo donde se ve sin JS) -->
+  <noscript><style>.video-marco video.video, .pausar { display: none; }</style></noscript>
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -137,31 +140,59 @@
       </div>
 
       <!-- Arriba a la derecha: va antes del contenido para que el orden de tabulación siga al visual -->
-      <button class="pausar" type="button" aria-label="Pausar animaciones" title="Pausar animaciones"><span aria-hidden="true">❚❚</span></button>
+      <button class="pausar" type="button" aria-label="Pausar animaciones y vídeos" title="Pausar animaciones y vídeos"><span aria-hidden="true">❚❚</span><span class="pausar-texto" aria-hidden="true">Pausar</span></button>
 
       <div class="hero-contenido">
-        <p class="titulo">
-          <span class="sr-only">RadarEmpleo</span>
-          <span class="titulo-radar" aria-hidden="true"><span style="--r:-8deg;--y:.13em">R</span><span style="--r:-4deg;--y:.035em">A</span><span style="--r:0deg;--y:0em">D</span><span style="--r:4deg;--y:.035em">A</span><span style="--r:8deg;--y:.13em">R</span></span>
-          <span class="titulo-empleo" aria-hidden="true">EMPLEO</span>
-        </p>
-        <p class="hero-eslogan"><span aria-hidden="true">// </span>¿La de trabajar te la sabes?</p>
-        <h1 class="hero-titulo" id="titulo-hero">Mi búsqueda de empleo, <span class="lima">en una app</span>: tablero, recordatorios, estadísticas y un radar semanal de ofertas con Claude.</h1>
-        <ul class="hero-stack" aria-label="Stack">
-          <li>ASP.NET Core 10</li>
-          <li>Angular 22</li>
-          <li>EF Core</li>
-          <li>+2.000 tests</li>
-          <li><a class="insignia-ci" href="https://github.com/eduardolar/RadarEmpleo/actions" target="_blank" rel="noopener"><span class="insignia-ci-punto" aria-hidden="true"></span>CI<span class="sr-only"> en GitHub Actions (se abre en otra pestaña)</span></a></li>
-        </ul>
-        <div class="hero-botones">
-          <a class="boton boton-lima" href="https://github.com/eduardolar/RadarEmpleo" target="_blank" rel="noopener">
-            <svg class="icono" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
-            Ver el código en GitHub<span class="sr-only"> (se abre en otra pestaña)</span>
-          </a>
-          <a class="boton boton-borde" href="#pantallas">Verla en 30&nbsp;s <span aria-hidden="true">↓</span></a>
+        <div class="hero-texto">
+          <p class="titulo">
+            <span class="sr-only">RadarEmpleo</span>
+            <span class="titulo-radar" aria-hidden="true"><span style="--r:-8deg;--y:.13em">R</span><span style="--r:-4deg;--y:.035em">A</span><span style="--r:0deg;--y:0em">D</span><span style="--r:4deg;--y:.035em">A</span><span style="--r:8deg;--y:.13em">R</span></span>
+            <span class="titulo-empleo" aria-hidden="true">EMPLEO</span>
+          </p>
+          <p class="hero-eslogan"><span aria-hidden="true">// </span>¿La de trabajar te la sabes?</p>
+          <h1 class="hero-titulo" id="titulo-hero">Mi búsqueda de empleo, <span class="lima">en una app</span>: tablero, recordatorios, estadísticas y un radar semanal de ofertas con Claude.</h1>
+          <ul class="hero-stack" aria-label="Stack">
+            <li>ASP.NET Core 10</li>
+            <li>Angular 22</li>
+            <li>EF Core</li>
+            <li>+2.000 tests</li>
+            <li><a class="insignia-ci" href="https://github.com/eduardolar/RadarEmpleo/actions" target="_blank" rel="noopener"><span class="insignia-ci-punto" aria-hidden="true"></span>CI<span class="sr-only"> en GitHub Actions (se abre en otra pestaña)</span></a></li>
+          </ul>
+          <div class="hero-botones">
+            <a class="boton boton-lima" href="https://github.com/eduardolar/RadarEmpleo" target="_blank" rel="noopener">
+              <svg class="icono" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+              Ver el código en GitHub<span class="sr-only"> (se abre en otra pestaña)</span>
+            </a>
+            <a class="boton boton-borde" href="#pantallas">Verla en 30&nbsp;s <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="hero-nota">Sin demo en línea: la app funciona en local. Aquí la tienes en vídeo, con datos inventados.</p>
         </div>
-        <p class="hero-nota">Sin demo en línea: la app funciona en local. Abajo la tienes en capturas reales.</p>
+
+        <!-- Vídeo de la app: el portátil en escritorio y el teléfono en el móvil (solo se ve uno) -->
+        <figure class="portatil portatil-hero video-marco">
+          <div class="portatil-pantalla">
+            <video class="video" role="img" muted loop playsinline preload="none" width="1280" height="800"
+                   style="background-image: url('video/tablero-poster.webp?v=20261118-3')"
+                   aria-label="Vídeo sin sonido del tablero: la candidatura «Programador/a Angular» se arrastra de la columna Enviada a Entrevista, sale el aviso con «Deshacer» y, en su ficha, se le pone un recordatorio para la entrevista de mañana a las 10:00.">
+              <source src="video/tablero.mp4?v=20261118-3" type="video/mp4">
+              <source src="video/tablero.webm?v=20261118-3" type="video/webm">
+            </video>
+            <noscript><picture><source media="(max-width: 1023px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><img class="video" src="video/tablero-poster.webp?v=20261118-3" width="1280" height="800" alt="La pantalla Tablero de RadarEmpleo: las candidaturas en columnas por estado."></picture></noscript>
+            <button class="video-boton" type="button" data-nombre="del tablero (portada)" hidden><span aria-hidden="true">▶</span></button>
+          </div>
+          <div class="portatil-base" aria-hidden="true"></div>
+        </figure>
+        <!-- En el móvil, imagen fija (el vídeo vertical está en la pestaña Móvil). En escritorio,
+             donde no se muestra, el <source> la cambia por un GIF vacío: no se descarga ni sin JS -->
+        <div class="hero-telefono">
+          <figure class="movil movil-hero">
+            <picture>
+              <source media="(min-width: 1024px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+              <img src="video/movil-poster.webp?v=20261118-3" width="720" height="1558" decoding="async"
+                   alt="RadarEmpleo en el móvil: la ficha de la candidatura «Desarrollador/a .NET Junior» en Nube Imaginaria, con el sello «ENVIADA 18 nov 2026».">
+            </picture>
+          </figure>
+        </div>
       </div>
 
       <img class="mascota" src="img/logo-radarempleo.svg?v=20261118-1" alt="" width="150" height="150" data-prof="0.3">
@@ -172,8 +203,8 @@
       <div class="contenedor">
         <header class="cabecera revela">
           <p class="antetitulo">// 01 · Qué hace</p>
-          <h2 class="h2" id="titulo-que-hace"><span class="subrayado">Cinco pantallas</span> y ni un archivo de texto</h2>
-          <p class="entradilla">Son las que uso cada día. Las capturas son de la app de verdad, con datos de ejemplo.</p>
+          <h2 class="h2" id="titulo-que-hace"><span class="subrayado">Seis pantallas</span> y ni un archivo de texto</h2>
+          <p class="entradilla">Son las que uso cada día. Los vídeos y capturas son de la app de verdad, con datos inventados.</p>
         </header>
 
         <div class="pestanas revela" id="pantallas">
@@ -185,7 +216,8 @@
               <button role="tab" type="button" id="tab-inicio" aria-controls="panel-inicio" aria-selected="true">Inicio</button>
               <button role="tab" type="button" id="tab-tablero" aria-controls="panel-tablero" aria-selected="false" tabindex="-1">Tablero</button>
               <button role="tab" type="button" id="tab-estadisticas" aria-controls="panel-estadisticas" aria-selected="false" tabindex="-1">Estadísticas</button>
-              <button role="tab" type="button" id="tab-rastreos" aria-controls="panel-rastreos" aria-selected="false" tabindex="-1">Rastreos</button>
+              <button role="tab" type="button" id="tab-rastreos" aria-controls="panel-rastreos" aria-selected="false" tabindex="-1">Rastreos con Claude</button>
+              <button role="tab" type="button" id="tab-importar" aria-controls="panel-importar" aria-selected="false" tabindex="-1">Importar</button>
               <button role="tab" type="button" id="tab-movil" aria-controls="panel-movil" aria-selected="false" tabindex="-1">Móvil</button>
             </div>
             <button class="flecha" type="button" data-mover="1" aria-label="Pantalla siguiente">
@@ -195,47 +227,54 @@
 
           <!-- Inicio -->
           <div class="panel" role="tabpanel" id="panel-inicio" aria-labelledby="tab-inicio" tabindex="0">
-            <figure class="portatil con-movil">
-              <div class="portatil-pantalla">
-                <picture>
-                  <source media="(max-width: 600px)" srcset="img/movil-inicio.webp?v=20261118-1" width="620" height="1377">
-                  <img src="img/inicio-escritorio.webp?v=20261118-1" width="1600" height="988"
-                       alt="Pantalla Inicio en modo oscuro: los recordatorios para hoy, uno marcado como «Vencido · jue 12 nov», cada uno con los botones Hecho y Posponer. En el ordenador se ve además, a la derecha, el resumen con 12 candidaturas activas, un 33 % de tasa de respuesta y la semana del 9 al 15 de noviembre; en el móvil, el resumen va plegado y encima están el botón «Nuevo recordatorio» y los filtros por tipo.">
-                </picture>
-              </div>
-              <div class="portatil-base" aria-hidden="true"></div>
-            </figure>
+            <div class="panel-medio">
+              <figure class="portatil video-marco">
+                <div class="portatil-pantalla">
+                  <video class="video" role="img" muted loop playsinline preload="none" width="1280" height="800"
+                         style="background-image: url('video/inicio-poster.webp?v=20261118-3')"
+                         aria-label="Vídeo sin sonido de la pantalla Inicio: un recordatorio vencido se marca como hecho, sale el aviso con «Deshacer» y, al deshacerlo, vuelve a la lista de pendientes. A la derecha, el resumen: 9 candidaturas activas, un 17 % de tasa de respuesta y la semana del 16 al 22 de noviembre.">
+                    <source src="video/inicio.mp4?v=20261118-3" type="video/mp4">
+                    <source src="video/inicio.webm?v=20261118-3" type="video/webm">
+                  </video>
+                  <noscript><img class="video" src="video/inicio-poster.webp?v=20261118-3" width="1280" height="800" alt="La pantalla Inicio de RadarEmpleo: los recordatorios de hoy con Hecho y Posponer, y el resumen de la semana."></noscript>
+                  <button class="video-boton" type="button" data-nombre="de Inicio" hidden><span aria-hidden="true">▶</span></button>
+                </div>
+                <div class="portatil-base" aria-hidden="true"></div>
+              </figure>
+              <a class="ampliar ampliar-video" href="video/inicio.mp4?v=20261118-3" target="_blank" rel="noopener">Ver el vídeo en grande<span class="ampliar-nota"> · mejor en horizontal</span> <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+            </div>
             <div class="panel-texto">
-              <p class="panel-num">01 / 05</p>
+              <p class="panel-num">01 / 06</p>
               <h3 class="h3">Lo que toca hoy, lo primero</h3>
               <p>Al abrirla veo lo vencido y lo de hoy: seguimientos, entrevistas y plazos. Cada recordatorio tiene <strong>Hecho</strong> y <strong>Posponer</strong>, y si me equivoco, <strong>Deshacer</strong> o <kbd>Ctrl</kbd>+<kbd>Z</kbd>.</p>
               <p>Debajo, los próximos siete días y las enviadas que siguen sin respuesta.</p>
               <ul class="etiquetas"><li>Recordatorios</li><li>Hecho</li><li>Posponer</li><li>Deshacer</li></ul>
-              <a class="ampliar" href="img/inicio-escritorio.webp?v=20261118-1" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
             </div>
           </div>
 
           <!-- Tablero -->
           <div class="panel" role="tabpanel" id="panel-tablero" aria-labelledby="tab-tablero" tabindex="0" hidden>
-            <figure class="portatil">
-              <div class="portatil-pantalla">
-                <img id="img-tablero" src="img/tablero-oscuro.webp?v=20261118-1" width="1600" height="1000" loading="lazy" decoding="async"
-                     data-alt-oscuro="Tablero en modo oscuro con las candidaturas en columnas por estado: Detectada, Preparada, Enviada y Entrevista abiertas, y Oferta, Descartada y Cerrada plegadas a un lado. Cada tarjeta lleva la empresa, el puesto, la pega y los días que lleva en ese estado."
-                     data-alt-claro="El mismo tablero en modo claro: columnas por estado con tarjetas blancas de borde negro y sombra dura, y las columnas Oferta, Descartada y Cerrada plegadas."
-                     alt="Tablero en modo oscuro con las candidaturas en columnas por estado: Detectada, Preparada, Enviada y Entrevista abiertas, y Oferta, Descartada y Cerrada plegadas a un lado. Cada tarjeta lleva la empresa, el puesto, la pega y los días que lleva en ese estado.">
-              </div>
-              <div class="portatil-base" aria-hidden="true"></div>
-            </figure>
+            <div class="panel-medio">
+              <figure class="portatil video-marco">
+                <div class="portatil-pantalla">
+                  <video class="video" role="img" muted loop playsinline preload="none" width="1280" height="800"
+                         style="background-image: url('video/tablero-poster.webp?v=20261118-3')"
+                         aria-label="Vídeo sin sonido del tablero: la candidatura «Programador/a Angular» se arrastra de la columna Enviada a Entrevista, sale el aviso con «Deshacer» y, en su ficha, se le pone un recordatorio para la entrevista de mañana a las 10:00.">
+                    <source src="video/tablero.mp4?v=20261118-3" type="video/mp4">
+                    <source src="video/tablero.webm?v=20261118-3" type="video/webm">
+                  </video>
+                  <button class="video-boton" type="button" data-nombre="del tablero" hidden><span aria-hidden="true">▶</span></button>
+                </div>
+                <div class="portatil-base" aria-hidden="true"></div>
+              </figure>
+              <a class="ampliar ampliar-video" href="video/tablero.mp4?v=20261118-3" target="_blank" rel="noopener">Ver el vídeo en grande<span class="ampliar-nota"> · mejor en horizontal</span> <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+            </div>
             <div class="panel-texto">
-              <p class="panel-num">02 / 05</p>
+              <p class="panel-num">02 / 06</p>
               <h3 class="h3">Cada candidatura en su columna</h3>
               <p>Detectada, Preparada, Enviada, Entrevista, Oferta, Descartada y Cerrada. Las muevo arrastrando o con el menú ⋮, y las columnas sin uso se pliegan para que quepa todo.</p>
               <p>¿Moví una sin querer? Tengo 10 minutos para deshacerlo y vuelve tal cual estaba, con sus fechas y sus seguimientos.</p>
-              <div class="modo" role="group" aria-label="Modo de la captura">
-                <button type="button" class="modo-boton" data-modo="oscuro" aria-pressed="true">Oscuro</button>
-                <button type="button" class="modo-boton" data-modo="claro" aria-pressed="false">Claro</button>
-              </div>
-              <a class="ampliar" id="ampliar-tablero" href="img/tablero-oscuro.webp?v=20261118-1" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+              <ul class="etiquetas"><li>Arrastrar</li><li>Deshacer</li><li>Recordatorios</li></ul>
             </div>
           </div>
 
@@ -252,7 +291,7 @@
               <div class="portatil-base" aria-hidden="true"></div>
             </figure>
             <div class="panel-texto">
-              <p class="panel-num">03 / 05</p>
+              <p class="panel-num">03 / 06</p>
               <h3 class="h3">Cómo va la búsqueda, en números</h3>
               <p>Candidaturas por estado, enviadas por semana, tasa de respuesta, días de media hasta que contestan y por qué me descartan.</p>
               <p>Cada cifra se lee también como texto, sin depender del color.</p>
@@ -261,22 +300,55 @@
             </div>
           </div>
 
-          <!-- Rastreos -->
+          <!-- Rastreos con Claude -->
           <div class="panel" role="tabpanel" id="panel-rastreos" aria-labelledby="tab-rastreos" tabindex="0" hidden>
-            <figure class="portatil">
-              <div class="portatil-pantalla">
-                <img src="img/rastreos-escritorio.webp?v=20261118-1" width="1600" height="1000" loading="lazy" decoding="async"
-                     alt="Pantalla Rastreos en modo oscuro: a la izquierda, el informe del rastreo con las ofertas recomendadas; a la derecha, las ofertas con los botones «Pasar al tablero» y «No me interesa». Una de ellas avisa: «Puede que ya la tengas», porque la empresa ya tiene una candidatura en el tablero.">
-              </div>
-              <div class="portatil-base" aria-hidden="true"></div>
-            </figure>
+            <div class="panel-medio">
+              <figure class="portatil video-marco">
+                <div class="portatil-pantalla">
+                  <video class="video" role="img" muted loop playsinline preload="none" width="1280" height="800"
+                         style="background-image: url('video/radar-poster.webp?v=20261118-3')"
+                         aria-label="Vídeo sin sonido de la pantalla Rastreos: a la izquierda, el informe del rastreo del lunes con cuatro ofertas; a la derecha, una pasa al tablero, otra avisa «Puede que ya la tengas» porque la empresa ya tiene una candidatura y otra se descarta con «No me interesa».">
+                    <source src="video/radar.mp4?v=20261118-3" type="video/mp4">
+                    <source src="video/radar.webm?v=20261118-3" type="video/webm">
+                  </video>
+                  <button class="video-boton" type="button" data-nombre="de Rastreos" hidden><span aria-hidden="true">▶</span></button>
+                </div>
+                <div class="portatil-base" aria-hidden="true"></div>
+              </figure>
+              <a class="ampliar ampliar-video" href="video/radar.mp4?v=20261118-3" target="_blank" rel="noopener">Ver el vídeo en grande<span class="ampliar-nota"> · mejor en horizontal</span> <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+            </div>
             <div class="panel-texto">
-              <p class="panel-num">04 / 05</p>
+              <p class="panel-num">04 / 06</p>
               <h3 class="h3">Las ofertas de la semana, sin repetir</h3>
-              <p>Cada semana entra un informe con las ofertas que encajan. Paso al tablero las que me interesan y el resto se queda fuera.</p>
+              <p>Cada semana, un rastreo con Claude deja un informe con las ofertas que encajan. Paso al tablero las que me interesan y el resto se queda fuera.</p>
               <p>Si la empresa ya tiene una candidatura, avisa antes de duplicarla: <q>Puede que ya la tengas</q>.</p>
               <ul class="etiquetas"><li>Informe semanal</li><li>Aviso de duplicadas</li><li>Pasar al tablero</li></ul>
-              <a class="ampliar" href="img/rastreos-escritorio.webp?v=20261118-1" target="_blank" rel="noopener">Ver la captura en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+            </div>
+          </div>
+
+          <!-- Importar -->
+          <div class="panel" role="tabpanel" id="panel-importar" aria-labelledby="tab-importar" tabindex="0" hidden>
+            <div class="panel-medio">
+              <figure class="portatil video-marco">
+                <div class="portatil-pantalla">
+                  <video class="video" role="img" muted loop playsinline preload="none" width="1280" height="800"
+                         style="background-image: url('video/importar-poster.webp?v=20261118-3')"
+                         aria-label="Vídeo sin sonido de Importar del registro: la app lee el archivo de candidaturas enviadas, separa 5 nuevas de 3 que ya están en el tablero, se pulsa «Añadir 5 candidaturas» y queda «Todo al día».">
+                    <source src="video/importar.webm?v=20261118-3" type="video/webm">
+                    <source src="video/importar.mp4?v=20261118-3" type="video/mp4">
+                  </video>
+                  <button class="video-boton" type="button" data-nombre="de Importar" hidden><span aria-hidden="true">▶</span></button>
+                </div>
+                <div class="portatil-base" aria-hidden="true"></div>
+              </figure>
+              <a class="ampliar ampliar-video" href="video/importar.mp4?v=20261118-3" target="_blank" rel="noopener">Ver el vídeo en grande<span class="ampliar-nota"> · mejor en horizontal</span> <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
+            </div>
+            <div class="panel-texto">
+              <p class="panel-num">05 / 06</p>
+              <h3 class="h3">El registro de antes, dentro de una vez</h3>
+              <p>Las candidaturas que llevaba en el Markdown no las copié a mano: la app lee la tabla del registro, aparta las que ya tengo y añade el resto de golpe. El archivo no se toca.</p>
+              <p>Si una fecha no está clara, lo dice: <q>La fecha es aproximada</q>.</p>
+              <ul class="etiquetas"><li>Importar</li><li>Sin duplicadas</li><li>Archivo intacto</li></ul>
             </div>
           </div>
 
@@ -287,9 +359,14 @@
                 <img src="img/movil-inicio.webp?v=20261118-1" width="620" height="1377" loading="lazy" decoding="async"
                      alt="Inicio en el móvil, en modo oscuro: el botón «Nuevo recordatorio», los filtros por tipo y los recordatorios de hoy con Hecho y Posponer.">
               </figure>
-              <figure class="movil m-centro">
-                <img src="img/movil-ficha.webp?v=20261118-1" width="540" height="1202" loading="lazy" decoding="async"
-                     alt="Ficha de una candidatura en el móvil, en modo claro: el puesto, el estado Enviada con su sello de goma «ENVIADA 31 oct 2026», los botones para cambiar de estado y el apartado «CV y carta».">
+              <figure class="movil m-centro video-marco">
+                <video class="video video-movil" role="img" muted loop playsinline preload="none" width="720" height="1558"
+                       style="background-image: url('video/movil-poster.webp?v=20261118-3')"
+                       aria-label="Vídeo sin sonido de la app en el móvil: la ficha de una candidatura enviada, con su sello, el CV, los recordatorios y el historial con notas; al final cambia a modo oscuro.">
+                  <source src="video/movil.webm?v=20261118-3" type="video/webm">
+                  <source src="video/movil.mp4?v=20261118-3" type="video/mp4">
+                </video>
+                <button class="video-boton" type="button" data-nombre="del móvil" hidden><span aria-hidden="true">▶</span></button>
               </figure>
               <figure class="movil m-der">
                 <img src="img/movil-estadisticas.webp?v=20261118-1" width="620" height="1377" loading="lazy" decoding="async"
@@ -297,11 +374,12 @@
               </figure>
             </div>
             <div class="panel-texto">
-              <p class="panel-num">05 / 05</p>
+              <p class="panel-num">06 / 06</p>
               <h3 class="h3">Y en el móvil, igual de cómoda</h3>
               <p>Menú abajo, zonas de toque de 48&nbsp;px y textos sin jerga, en claro y en oscuro.</p>
               <p>La ficha de cada candidatura lleva su sello, el historial de estados, las notas y, cuando la envío, el CV y la carta que mandé, que se abren dentro de la propia ficha.</p>
               <ul class="etiquetas"><li>Ficha con historial</li><li>CV enviado</li><li>Claro y oscuro</li></ul>
+              <a class="ampliar" href="video/movil.mp4?v=20261118-3" target="_blank" rel="noopener">Ver el vídeo en grande <span aria-hidden="true">↗</span><span class="sr-only"> (se abre en otra pestaña)</span></a>
             </div>
           </div>
         </div>
@@ -441,11 +519,11 @@
       </div>
     </div>
     <div class="contenedor pie-notas">
-      <p>Capturas con datos de ejemplo: las empresas y las ofertas son inventadas.</p>
+      <p>Vídeos y capturas con datos de ejemplo: las empresas y las ofertas son inventadas.</p>
       <p>Web de presentación del proyecto · Actualizado: <time datetime="2026-11">nov 2026</time></p>
     </div>
   </footer>
 
-  <script src="js/main.js?v=20261118-2" defer></script>
+  <script src="js/main.js?v=20261118-4" defer></script>
 </body>
 </html>
