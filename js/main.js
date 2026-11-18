@@ -136,17 +136,39 @@
 
   const revelables = [...document.querySelectorAll('.revela')];
   if ('IntersectionObserver' in window && !movReducido.matches) {
+    // Lo que ya está en pantalla (recarga a mitad, entrar con #ancla) se queda quieto:
+    // se marca visible sin animación antes de observar, y también en la primera
+    // tanda del observador por si el navegador recoloca el scroll después.
+    const enPantalla = (el) => {
+      const r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    };
+    const fijar = (el) => {
+      el.classList.add('visible', 'ya-visible');
+      el.querySelectorAll('[data-cuenta]').forEach((c) => {
+        c.textContent = (c.dataset.prefijo || '') + formatear(parseInt(c.dataset.cuenta, 10));
+      });
+    };
+    const pendientes = revelables.filter((el) => {
+      if (!enPantalla(el)) return true;
+      fijar(el);
+      return false;
+    });
     // El contenido se ve sin esta clase; con ella, cada bloque entra animado al asomar
     raiz.classList.add('anima-revela');
+    let primeraTanda = true;
     const obs = new IntersectionObserver((entradas) => {
+      const esPrimera = primeraTanda;
+      primeraTanda = false;
       entradas.forEach((en) => {
         if (!en.isIntersecting) return;
+        obs.unobserve(en.target);
+        if (esPrimera) { fijar(en.target); return; }
         en.target.classList.add('visible');
         en.target.querySelectorAll('[data-cuenta]').forEach(contar);
-        obs.unobserve(en.target);
       });
     }, { threshold: 0 });
-    revelables.forEach((el) => obs.observe(el));
+    pendientes.forEach((el) => obs.observe(el));
   } else {
     revelables.forEach((el) => el.classList.add('visible'));
   }
