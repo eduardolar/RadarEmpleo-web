@@ -136,6 +136,8 @@
 
   const revelables = [...document.querySelectorAll('.revela')];
   if ('IntersectionObserver' in window && !movReducido.matches) {
+    // El contenido se ve sin esta clase; con ella, cada bloque entra animado al asomar
+    raiz.classList.add('anima-revela');
     const obs = new IntersectionObserver((entradas) => {
       entradas.forEach((en) => {
         if (!en.isIntersecting) return;
@@ -143,7 +145,7 @@
         en.target.querySelectorAll('[data-cuenta]').forEach(contar);
         obs.unobserve(en.target);
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+    }, { threshold: 0 });
     revelables.forEach((el) => obs.observe(el));
   } else {
     revelables.forEach((el) => el.classList.add('visible'));

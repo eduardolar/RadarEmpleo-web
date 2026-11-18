@@ -1046,16 +1046,17 @@ kbd {
   .pie-rejilla { grid-template-columns: 1fr; gap: 26px; }
 }
 
-/* ---------- Aparición al hacer scroll ---------- */
-.js .revela { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
-.js .revela.visible { opacity: 1; transform: none; }
-.js .cifra.revela.visible:nth-child(2) { transform: translateX(clamp(0px, 3vw, 36px)); }
-@media (max-width: 960px) { .js .cifra.revela.visible:nth-child(2) { transform: none; } }
-.js .cifra.revela:nth-child(2) { transition-delay: .1s; }
-.js .cifra.revela:nth-child(3) { transition-delay: .2s; }
-.js .decision.revela:nth-child(2) { transition-delay: .08s; }
-.js .decision.revela:nth-child(3) { transition-delay: .16s; }
-.js .decision.revela:nth-child(4) { transition-delay: .24s; }
+/* ---------- Aparición al hacer scroll ----------
+   El contenido se ve siempre (sin JS, al imprimir o en una captura de página
+   completa). Solo si main.js pone «anima-revela» en <html>, cada bloque entra con
+   una animación al asomar; usa «translate» para no pisar el «transform» propio. */
+.anima-revela .revela.visible { animation: revela-entra .7s cubic-bezier(.2, .7, .2, 1) both; }
+.anima-revela .cifra.revela.visible:nth-child(2) { animation-delay: .1s; }
+.anima-revela .cifra.revela.visible:nth-child(3) { animation-delay: .2s; }
+.anima-revela .decision.revela.visible:nth-child(2) { animation-delay: .08s; }
+.anima-revela .decision.revela.visible:nth-child(3) { animation-delay: .16s; }
+.anima-revela .decision.revela.visible:nth-child(4) { animation-delay: .24s; }
+@keyframes revela-entra { from { opacity: 0; translate: 0 28px; } to { opacity: 1; translate: 0 0; } }
 
 /* Animaciones en pausa (botón del hero) */
 .pausado .radar-barrido,
@@ -1068,8 +1069,7 @@ kbd {
   .radar-barrido { animation: none; transform: rotate(35deg); }
   .vaiven, .franja-cinta, .panel.entra { animation: none; }
   .franja-cinta { transform: translateX(-12%); }
-  .js .revela, .js .revela.visible { opacity: 1; transform: none; transition: none; }
-  .js .cifra.revela.visible:nth-child(2) { transform: translateX(clamp(0px, 3vw, 36px)); }
+  .anima-revela .revela.visible { animation: none; }
   .boton, .flecha, .pestanas-lista [role="tab"] { transition: none; }
   .pausar { display: none; }
 }
