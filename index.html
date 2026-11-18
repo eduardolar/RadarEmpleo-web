@@ -21,6 +21,9 @@
   <link rel="icon" href="img/logo-radarempleo.svg?v=20261118-1" type="image/svg+xml">
   <link rel="preload" href="fonts/bricolage-grotesque-latin.woff2?v=20261118-1" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/estilos.css?v=20261118-4">
+  <!-- Sin JS: los vídeos no se reproducen y el navegador les pondría sus controles encima;
+       en su lugar se ve la imagen del póster (en <noscript>, solo donde se ve sin JS) -->
+  <noscript><style>.video-marco video.video, .pausar { display: none; }</style></noscript>
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -174,16 +177,20 @@
               <source src="video/tablero.mp4?v=20261118-3" type="video/mp4">
               <source src="video/tablero.webm?v=20261118-3" type="video/webm">
             </video>
+            <noscript><picture><source media="(max-width: 1023px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><img class="video" src="video/tablero-poster.webp?v=20261118-3" width="1280" height="800" alt="La pantalla Tablero de RadarEmpleo: las candidaturas en columnas por estado."></picture></noscript>
             <button class="video-boton" type="button" data-nombre="del tablero (portada)" hidden><span aria-hidden="true">▶</span></button>
           </div>
           <div class="portatil-base" aria-hidden="true"></div>
         </figure>
-        <!-- En el móvil, imagen fija (el vídeo vertical está en la pestaña Móvil); «lazy» para
-             que en escritorio, donde no se muestra, no se descargue -->
+        <!-- En el móvil, imagen fija (el vídeo vertical está en la pestaña Móvil). En escritorio,
+             donde no se muestra, el <source> la cambia por un GIF vacío: no se descarga ni sin JS -->
         <div class="hero-telefono">
           <figure class="movil movil-hero">
-            <img src="video/movil-poster.webp?v=20261118-3" width="720" height="1558" loading="lazy" decoding="async"
-                 alt="RadarEmpleo en el móvil: la ficha de la candidatura «Desarrollador/a .NET Junior» en Nube Imaginaria, con el sello «ENVIADA 18 nov 2026».">
+            <picture>
+              <source media="(min-width: 1024px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+              <img src="video/movil-poster.webp?v=20261118-3" width="720" height="1558" decoding="async"
+                   alt="RadarEmpleo en el móvil: la ficha de la candidatura «Desarrollador/a .NET Junior» en Nube Imaginaria, con el sello «ENVIADA 18 nov 2026».">
+            </picture>
           </figure>
         </div>
       </div>
@@ -229,6 +236,7 @@
                     <source src="video/inicio.mp4?v=20261118-3" type="video/mp4">
                     <source src="video/inicio.webm?v=20261118-3" type="video/webm">
                   </video>
+                  <noscript><img class="video" src="video/inicio-poster.webp?v=20261118-3" width="1280" height="800" alt="La pantalla Inicio de RadarEmpleo: los recordatorios de hoy con Hecho y Posponer, y el resumen de la semana."></noscript>
                   <button class="video-boton" type="button" data-nombre="de Inicio" hidden><span aria-hidden="true">▶</span></button>
                 </div>
                 <div class="portatil-base" aria-hidden="true"></div>
