@@ -773,10 +773,10 @@ main:focus { outline: none; }
   .hero-botones .boton { width: 100%; }
 }
 
-/* El stack, en dos líneas fijas donde no cabe en una (móvil y la columna estrecha del
-   hero partido): sin un «·» suelto al empezar la segunda. El ::before de la lista es el
-   salto: va entre el tercero y el cuarto con «order». */
-@media (max-width: 600px), (min-width: 1024px) and (max-width: 1279px) {
+/* El stack, en dos líneas fijas donde no cabe en una (el móvil y la columna del hero
+   partido, que en ningún ancho le deja sitio de sobra): sin un «·» suelto al empezar la
+   segunda. El ::before de la lista es el salto: va entre el tercero y el cuarto con «order». */
+@media (max-width: 600px), (min-width: 1024px) {
   .hero-stack li { order: 1; }
   .hero-stack li:nth-child(n+4) { order: 3; }
   .hero-stack::before { content: ""; order: 2; flex-basis: 100%; height: 0; }
