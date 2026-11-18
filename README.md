@@ -35,9 +35,14 @@ inventados: las empresas, las ofertas, las fechas y los documentos son de ejempl
 Los de escritorio miden 1280×800 y el del móvil, 720×1558.
 
 En la página no llevan `autoplay` ni `poster`: `main.js` reproduce cada vídeo solo mientras se ve
-(y solo el de la pestaña activa) y lo pausa al salir de la pantalla; con «reducir movimiento» no
-arranca ninguno solo. El póster va como fondo del propio `<video>` para que solo se descargue el
-de los vídeos que se ven. Los `.gif` de la grabación no se publican.
+al menos la mitad (y solo el de la pestaña activa) y lo pausa al salir de la pantalla; con «reducir
+movimiento» o el ahorro de datos no arranca ninguno solo. El póster va como fondo del propio
+`<video>` para que solo se descargue el de los vídeos que se ven; sin JS, un `<noscript>` pone la
+imagen del póster en su lugar. En el hero del móvil no hay vídeo: es la imagen fija del teléfono
+(el vídeo vertical está en la pestaña Móvil).
+
+En Inicio, Tablero y Rastreos el MP4 va primero porque pesa menos que su WebM; en Importar y Móvil,
+al revés. Los `.gif` de la grabación no se publican.
 
 Los estilos, el script, las imágenes, los vídeos y las fuentes se enlazan con `?v=AAAAMMDD-N`: al
 cambiarlos, sube la versión en `index.html` (y en las `url()` de las fuentes de `css/estilos.css`)
