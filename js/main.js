@@ -106,13 +106,12 @@
 
   /* ---------- Pausar las animaciones en bucle ---------- */
   const botonPausa = document.querySelector('.pausar');
-  const textoPausa = botonPausa.querySelector('.pausar-texto');
   const iconoPausa = botonPausa.querySelector('[aria-hidden]');
   botonPausa.addEventListener('click', () => {
     const pausado = raiz.classList.toggle('pausado');
-    textoPausa.textContent = pausado ? 'Reanudar animaciones' : 'Pausar animaciones';
-    botonPausa.setAttribute('aria-label', textoPausa.textContent);
-    botonPausa.title = textoPausa.textContent;
+    const texto = pausado ? 'Reanudar animaciones' : 'Pausar animaciones';
+    botonPausa.setAttribute('aria-label', texto);
+    botonPausa.title = texto;
     iconoPausa.textContent = pausado ? '▶' : '❚❚';
   });
 
