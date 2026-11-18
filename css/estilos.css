@@ -380,8 +380,7 @@ main:focus { outline: none; }
   color: var(--lapiz-osc);
 }
 .hero-stack li { white-space: nowrap; }
-.hero-stack .hero-stack-salto { display: none; }
-.hero-stack li + li:not(.hero-stack-salto)::before { content: "·"; content: "·" / ""; margin-inline: .6em; color: var(--lima); }
+.hero-stack li + li::before { content: "·"; content: "·" / ""; margin-inline: .6em; color: var(--lima); }
 .insignia-ci {
   display: inline-flex;
   align-items: center;
@@ -639,9 +638,12 @@ main:focus { outline: none; }
   .p1 { left: 6%; top: 206px; }
   .p5 { left: auto; right: 22%; top: 92px; }
 
-  /* El stack, en dos líneas fijas: sin un «·» suelto al empezar la segunda */
-  .hero-stack .hero-stack-salto { display: block; flex-basis: 100%; height: 0; }
-  .hero-stack li.hero-stack-salto + li::before { content: none; }
+  /* El stack, en dos líneas fijas: sin un «·» suelto al empezar la segunda.
+     El ::before de la lista es el salto: va entre el tercero y el cuarto con «order». */
+  .hero-stack li { order: 1; }
+  .hero-stack li:nth-child(n+4) { order: 3; }
+  .hero-stack::before { content: ""; order: 2; flex-basis: 100%; height: 0; }
+  .hero-stack li:nth-child(4)::before { content: none; }
 
   /* Los dos botones, a ancho completo y uno bajo el otro */
   .hero-botones { flex-direction: column; align-items: stretch; width: 100%; gap: 14px; }
