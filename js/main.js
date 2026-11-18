@@ -111,6 +111,8 @@
   botonPausa.addEventListener('click', () => {
     const pausado = raiz.classList.toggle('pausado');
     textoPausa.textContent = pausado ? 'Reanudar animaciones' : 'Pausar animaciones';
+    botonPausa.setAttribute('aria-label', textoPausa.textContent);
+    botonPausa.title = textoPausa.textContent;
     iconoPausa.textContent = pausado ? '▶' : '❚❚';
   });
 
