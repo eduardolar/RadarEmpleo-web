@@ -17,18 +17,32 @@ y abrir http://127.0.0.1:8090/
 
 - `index.html`: la página.
 - `css/estilos.css`: estilos (identidad de `docs/DISENO.md` de la app).
-- `js/main.js`: menú, parallax del hero, apariciones al hacer scroll, cifras y pestañas.
-- `img/`: capturas en WebP (con datos de ejemplo) y el logo.
+- `js/main.js`: menú, parallax del hero, apariciones al hacer scroll, cifras, pestañas y vídeos.
+- `video/`: los vídeos en bucle de la app (`inicio`, `tablero`, `radar`, `importar` y `movil`),
+  cada uno en WebM y MP4 y con su póster en WebP.
+- `img/`: las capturas que quedan (Estadísticas y dos del móvil, en WebP), el logo y la imagen
+  para redes.
 - `fonts/`: Bricolage Grotesque, JetBrains Mono y Roboto en woff2 (subconjunto latin), cada una
   con su licencia SIL OFL 1.1.
 
 La carpeta `_capturas/` (capturas de la propia página para revisarla) está en `.gitignore`: se
 queda en local y no se publica.
 
-Los estilos, el script, las imágenes y las fuentes se enlazan con `?v=AAAAMMDD-N`: al cambiarlos,
-sube la versión en `index.html` (y en las `url()` de las fuentes de `css/estilos.css`) para que
-nadie vea la copia vieja de la caché. El tablero claro u oscuro toma la versión de la imagen inicial
-(`main.js` la copia), así que basta con cambiarla en `index.html`.
+## Los vídeos
+
+Están grabados con la app real funcionando en local, sobre una base de datos temporal con datos
+inventados: las empresas, las ofertas, las fechas y los documentos son de ejemplo. No llevan audio.
+Los de escritorio miden 1280×800 y el del móvil, 720×1558.
+
+En la página no llevan `autoplay` ni `poster`: `main.js` reproduce cada vídeo solo mientras se ve
+(y solo el de la pestaña activa) y lo pausa al salir de la pantalla; con «reducir movimiento» no
+arranca ninguno solo. El póster va como fondo del propio `<video>` para que solo se descargue el
+de los vídeos que se ven. Los `.gif` de la grabación no se publican.
+
+Los estilos, el script, las imágenes, los vídeos y las fuentes se enlazan con `?v=AAAAMMDD-N`: al
+cambiarlos, sube la versión en `index.html` (y en las `url()` de las fuentes de `css/estilos.css`)
+para que nadie vea la copia vieja de la caché. Los pósters de los vídeos van en el `style` de cada
+`<video>`, también con su `?v=`.
 
 ## Publicar en GitHub Pages
 
