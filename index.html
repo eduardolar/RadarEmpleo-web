@@ -20,7 +20,7 @@
   <meta property="og:description" content="¿La de trabajar te la sabes? La app con la que llevo mi búsqueda de empleo: tablero, recordatorios, estadísticas y un radar semanal de ofertas con Claude. .NET 10 + Angular 22, con más de 2.000 tests.">
   <link rel="icon" href="img/logo-radarempleo.svg?v=20261118-1" type="image/svg+xml">
   <link rel="preload" href="fonts/bricolage-grotesque-latin.woff2?v=20261118-1" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/estilos.css?v=20261118-3">
+  <link rel="stylesheet" href="css/estilos.css?v=20261118-4">
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -178,15 +178,14 @@
           </div>
           <div class="portatil-base" aria-hidden="true"></div>
         </figure>
-        <figure class="movil movil-hero video-marco">
-          <video class="video video-movil" muted loop playsinline preload="none" width="720" height="1558"
-                 style="background-image: url('video/movil-poster.webp?v=20261118-3')"
-                 aria-label="Vídeo sin sonido de la app en el móvil: la ficha de una candidatura enviada, con su sello, el CV, los recordatorios y el historial con notas; al final cambia a modo oscuro.">
-            <source src="video/movil.webm?v=20261118-3" type="video/webm">
-            <source src="video/movil.mp4?v=20261118-3" type="video/mp4">
-          </video>
-          <button class="video-boton" type="button" data-nombre="del móvil" hidden><span aria-hidden="true">▶</span></button>
-        </figure>
+        <!-- En el móvil, imagen fija (el vídeo vertical está en la pestaña Móvil); «lazy» para
+             que en escritorio, donde no se muestra, no se descargue -->
+        <div class="hero-telefono">
+          <figure class="movil movil-hero">
+            <img src="video/movil-poster.webp?v=20261118-3" width="720" height="1558" loading="lazy" decoding="async"
+                 alt="RadarEmpleo en el móvil: la ficha de la candidatura «Desarrollador/a .NET Junior» en Nube Imaginaria, con el sello «ENVIADA 18 nov 2026».">
+          </figure>
+        </div>
       </div>
 
       <img class="mascota" src="img/logo-radarempleo.svg?v=20261118-1" alt="" width="150" height="150" data-prof="0.3">
@@ -509,6 +508,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20261118-3" defer></script>
+  <script src="js/main.js?v=20261118-4" defer></script>
 </body>
 </html>

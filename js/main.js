@@ -51,7 +51,9 @@
 
   /* ---------- Parallax del hero ---------- */
   const hero = document.querySelector('.hero');
-  const contenidoHero = document.querySelector('.hero-contenido');
+  // Solo el texto: el vídeo del hero no se mueve ni se funde
+  const contenidoHero = document.querySelector('.hero-texto');
+  const telefonoHero = document.querySelector('.hero-telefono');
   const capas = [...hero.querySelectorAll('[data-prof]')].map((el) => ({ el, prof: parseFloat(el.dataset.prof) || 0 }));
   const raton = { x: 0, y: 0, ax: 0, ay: 0 };
   let pendiente = false;
@@ -83,7 +85,9 @@
       el.style.setProperty('--my', (raton.ay * prof * 40).toFixed(1) + 'px');
     });
     const avance = Math.min(y / alto, 1);
-    contenidoHero.style.transform = `translate3d(0, ${(y * 0.32).toFixed(1)}px, 0) scale(${(1 - avance * 0.06).toFixed(3)})`;
+    // Con el teléfono debajo (móvil), el texto solo se funde: si bajara, se metería tras él
+    const baja = telefonoHero && telefonoHero.offsetParent !== null ? 0 : 0.32;
+    contenidoHero.style.transform = `translate3d(0, ${(y * baja).toFixed(1)}px, 0) scale(${(1 - avance * 0.06).toFixed(3)})`;
     contenidoHero.style.opacity = String(Math.max(0, 1 - avance * 1.25).toFixed(3));
 
     if (Math.abs(raton.x - raton.ax) > 0.002 || Math.abs(raton.y - raton.ay) > 0.002) pedir();
