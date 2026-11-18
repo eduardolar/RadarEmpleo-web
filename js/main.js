@@ -111,13 +111,20 @@
   /* ---------- Pausar las animaciones en bucle ---------- */
   const botonPausa = document.querySelector('.pausar');
   const iconoPausa = botonPausa.querySelector('[aria-hidden]');
-  botonPausa.addEventListener('click', () => {
-    const pausado = raiz.classList.toggle('pausado');
-    const texto = pausado ? 'Reanudar animaciones y vídeos' : 'Pausar animaciones y vídeos';
+  // Con «reducir movimiento» los vídeos no arrancan solos: el botón no los promete
+  const rotularPausa = () => {
+    const pausado = raiz.classList.contains('pausado');
+    const texto = (pausado ? 'Reanudar animaciones' : 'Pausar animaciones') + (movReducido.matches ? '' : ' y vídeos');
     botonPausa.setAttribute('aria-label', texto);
     botonPausa.title = texto;
     iconoPausa.textContent = pausado ? '▶' : '❚❚';
+  };
+  botonPausa.addEventListener('click', () => {
+    raiz.classList.toggle('pausado');
+    rotularPausa();
   });
+  movReducido.addEventListener('change', rotularPausa);
+  rotularPausa();
 
   /* ---------- Apariciones y cifras ---------- */
   const formatear = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -226,44 +233,59 @@
 
   /* ---------- Vídeos de la app ----------
      El HTML no lleva «autoplay»: así nada se descarga antes de pintar la página y, con
-     «reducir movimiento», ninguno arranca solo (se ve el póster con su botón ▶).
-     Cada vídeo se reproduce mientras se ve y se pausa al salir de la pantalla; los de
-     las pestañas ocultas y el marco del hero que no toca no llegan a verse nunca. */
+     «reducir movimiento» o el ahorro de datos, ninguno arranca solo (se ve el póster
+     con su botón ▶). Cada vídeo se reproduce mientras se ve al menos la mitad y se
+     pausa al salir de la pantalla; los de las pestañas ocultas no llegan a verse. */
+  const ahorroDatos = Boolean(navigator.connection && navigator.connection.saveData);
   const videos = [...document.querySelectorAll('.video-marco')].map((marco) => ({
     marco,
     v: marco.querySelector('video'),
     boton: marco.querySelector('.video-boton'),
     visible: false,
-    eleccion: '', // «ver» o «parar» si la persona ha usado el botón de ese vídeo
+    eleccion: '', // «ver» o «parar» si la persona lo ha elegido para ese vídeo
   }));
-  const arrancaSolo = () => !movReducido.matches && !raiz.classList.contains('pausado');
+  const arrancaSolo = () => !movReducido.matches && !ahorroDatos && !raiz.classList.contains('pausado');
   // ¿Debe reproducirse cuando esté a la vista?
   const encendido = (o) => o.eleccion === 'ver' || (o.eleccion === '' && arrancaSolo());
 
+  // El botón cuenta lo que pasa de verdad (v.paused); el ▶ grande, que no va a arrancar solo
+  const pintarBoton = (o) => {
+    const parado = o.v.paused;
+    o.marco.classList.toggle('parado', !encendido(o));
+    o.boton.setAttribute('aria-label', (parado ? 'Reproducir el vídeo ' : 'Pausar el vídeo ') + o.boton.dataset.nombre);
+    o.boton.title = parado ? 'Reproducir este vídeo' : 'Pausar este vídeo';
+    o.boton.firstElementChild.textContent = parado ? '▶' : '❚❚';
+  };
+
   const aplicar = (o) => {
-    const on = encendido(o);
-    o.marco.classList.toggle('parado', !on);
-    o.boton.setAttribute('aria-label', (on ? 'Pausar el vídeo ' : 'Reproducir el vídeo ') + o.boton.dataset.nombre);
-    o.boton.firstElementChild.textContent = on ? '❚❚' : '▶';
-    if (on && o.visible) {
+    if (encendido(o) && o.visible) {
       if (o.v.paused) {
         o.v.play().catch((e) => {
-          // Si el navegador no deja reproducirlo (ahorro de energía…), queda el póster con ▶
-          if (e.name === 'NotAllowedError') { o.eleccion = 'parar'; aplicar(o); }
+          // Si no se puede reproducir (ahorro de energía, formato…), queda el póster con ▶
+          if (e.name !== 'AbortError') { o.eleccion = 'parar'; aplicar(o); }
         });
       }
     } else if (!o.v.paused) {
       o.v.pause();
     }
+    pintarBoton(o);
   };
 
   videos.forEach((o) => {
-    o.boton.hidden = false;
     o.boton.addEventListener('click', () => {
-      o.eleccion = encendido(o) ? 'parar' : 'ver';
+      o.eleccion = o.v.paused ? 'ver' : 'parar';
       aplicar(o);
     });
-    aplicar(o);
+    // Si se pausa o se reanuda desde fuera (el menú contextual del navegador), se respeta.
+    // Las pausas propias llegan con el vídeo apagado o fuera de la vista: no cuentan.
+    o.v.addEventListener('play', () => {
+      if (!encendido(o)) o.eleccion = 'ver';
+      pintarBoton(o);
+    });
+    o.v.addEventListener('pause', () => {
+      if (o.visible && encendido(o)) o.eleccion = 'parar';
+      pintarBoton(o);
+    });
   });
 
   // «Pausar animaciones» y «reducir movimiento» mandan sobre lo elegido en cada vídeo
@@ -287,7 +309,9 @@
     });
   }
 
+  // Sin IntersectionObserver no se sabe qué se ve: los vídeos se quedan en el póster y sin botón
   if ('IntersectionObserver' in window) {
+    videos.forEach((o) => { o.boton.hidden = false; pintarBoton(o); });
     let primeraRonda = true;
     const obsVideos = new IntersectionObserver((entradas) => {
       entradas.forEach((en) => {
@@ -298,7 +322,7 @@
         aplicar(o);
       });
       primeraRonda = false;
-    }, { threshold: 0.2 });
+    }, { threshold: 0.5 });
     // Después de «load»: ningún vídeo compite con la primera pintada de la página
     const observarVideos = () => videos.forEach((o) => obsVideos.observe(o.v));
     if (document.readyState === 'complete') requestAnimationFrame(observarVideos);

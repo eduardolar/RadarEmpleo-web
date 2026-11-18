@@ -451,19 +451,22 @@ main:focus { outline: none; }
 }
 .video-movil { aspect-ratio: 720 / 1558; }
 
-/* Botón de cada vídeo (main.js lo muestra): pequeño en la esquina mientras se reproduce
-   y un ▶ grande en el centro del póster cuando está parado. */
+/* Botón de cada vídeo (main.js lo muestra): pequeño en una esquina libre mientras se
+   reproduce y un ▶ grande en el centro del póster cuando no va a arrancar solo.
+   En el portátil va abajo a la izquierda, sobre la parte vacía del menú lateral de la
+   app, para no tapar las columnas; en el teléfono, arriba a la derecha. */
 .video-marco,
 .video-marco .portatil-pantalla { position: relative; }
 .video-boton {
   position: absolute;
-  right: 16px; bottom: 18px;
+  left: calc(clamp(6px, 1.1vw, 14px) + 6px);
+  bottom: calc(clamp(8px, 1.4vw, 18px) + 6px);
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 44px; height: 44px;
+  width: 48px; height: 48px;
   padding: 0;
-  font: 700 .9375rem/1 var(--mono);
+  font: 700 1rem/1 var(--mono);
   color: var(--papel);
   background: var(--tinta);
   border: 2px solid var(--lapiz-osc);
@@ -471,11 +474,18 @@ main:focus { outline: none; }
   box-shadow: 3px 3px 0 var(--sombra-osc);
   cursor: pointer;
 }
+.movil .video-boton { left: auto; right: 12px; bottom: auto; top: 12px; }
 .video-boton[hidden] { display: none; }
 .video-boton:hover { color: var(--lima); border-color: var(--lima); }
+/* Foco: anillo oscuro con doble borde lima, visible sobre el póster claro y sobre el fondo oscuro */
+.video-boton:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 8px var(--lima);
+}
 .video-marco.parado .video-boton {
-  right: 50%; bottom: 50%;
-  translate: 50% 50%;
+  left: 50%; top: 50%; right: auto; bottom: auto;
+  translate: -50% -50%;
   width: 72px; height: 72px;
   font-size: 1.75rem;
   color: var(--tinta);
@@ -484,6 +494,7 @@ main:focus { outline: none; }
   box-shadow: 5px 5px 0 var(--tinta);
 }
 .video-marco.parado .video-boton:hover { color: var(--tinta); background: var(--papel); }
+.video-marco.parado .video-boton:focus-visible { box-shadow: 0 0 0 8px var(--lima); }
 /* Teléfono pequeño de la pestaña Móvil: el ▶ un poco más contenido */
 .m-centro.parado .video-boton { width: 56px; height: 56px; font-size: 1.4rem; }
 @media (max-width: 600px) {
