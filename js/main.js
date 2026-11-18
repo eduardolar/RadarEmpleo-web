@@ -319,8 +319,9 @@
       entradas.forEach((en) => {
         const o = videos.find((x) => x.v === en.target);
         o.visible = en.isIntersecting;
-        // El que se ve al cargar pide ya sus datos básicos (duración y primer fotograma)
-        if (primeraRonda && o.visible && o.v.preload === 'none') o.v.preload = 'metadata';
+        // El que se ve al cargar pide ya sus datos básicos (duración y primer fotograma),
+        // salvo con el ahorro de datos
+        if (primeraRonda && o.visible && !ahorroDatos && o.v.preload === 'none') o.v.preload = 'metadata';
         aplicar(o);
       });
       primeraRonda = false;
