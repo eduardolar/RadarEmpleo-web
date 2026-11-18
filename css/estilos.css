@@ -381,7 +381,7 @@ main:focus { outline: none; }
 }
 .hero-stack li { white-space: nowrap; }
 .hero-stack .hero-stack-salto { display: none; }
-.hero-stack li + li:not(.hero-stack-salto)::before { content: "·" / ""; margin-inline: .6em; color: var(--lima); }
+.hero-stack li + li:not(.hero-stack-salto)::before { content: "·"; content: "·" / ""; margin-inline: .6em; color: var(--lima); }
 .insignia-ci {
   display: inline-flex;
   align-items: center;
