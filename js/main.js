@@ -111,6 +111,7 @@
   /* ---------- Pausar las animaciones en bucle ---------- */
   const botonPausa = document.querySelector('.pausar');
   const iconoPausa = botonPausa.querySelector('[aria-hidden]');
+  const textoPausa = botonPausa.querySelector('.pausar-texto');
   // Con «reducir movimiento» los vídeos no arrancan solos: el botón no los promete
   const rotularPausa = () => {
     const pausado = raiz.classList.contains('pausado');
@@ -118,6 +119,7 @@
     botonPausa.setAttribute('aria-label', texto);
     botonPausa.title = texto;
     iconoPausa.textContent = pausado ? '▶' : '❚❚';
+    textoPausa.textContent = pausado ? 'Reanudar' : 'Pausar';
   };
   botonPausa.addEventListener('click', () => {
     raiz.classList.toggle('pausado');

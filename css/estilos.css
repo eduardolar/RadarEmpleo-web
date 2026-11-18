@@ -433,6 +433,12 @@ main:focus { outline: none; }
   cursor: pointer;
 }
 .pausar:hover { color: var(--lima); border-color: var(--lima); }
+/* Con sitio, el botón global dice «Pausar»/«Reanudar» para no confundirlo con el de cada vídeo */
+.pausar-texto { display: none; }
+@media (min-width: 768px) {
+  .pausar { display: flex; align-items: center; gap: 8px; width: auto; padding: 0 14px; font-size: .8125rem; }
+  .pausar-texto { display: inline; font: 700 .875rem/1 var(--texto); }
+}
 
 /* ---------- Vídeos de la app ----------
    El póster va de fondo del propio <video> y no en «poster»: así solo se descarga el
