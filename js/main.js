@@ -1,5 +1,5 @@
 // RadarEmpleo · página de presentación
-// Sin dependencias: menú, parallax del hero, apariciones al hacer scroll, cifras y pestañas.
+// Sin dependencias: menú, parallax del hero, apariciones al hacer scroll, cifras, pestañas y vídeos.
 (() => {
   'use strict';
 
@@ -109,7 +109,7 @@
   const iconoPausa = botonPausa.querySelector('[aria-hidden]');
   botonPausa.addEventListener('click', () => {
     const pausado = raiz.classList.toggle('pausado');
-    const texto = pausado ? 'Reanudar animaciones' : 'Pausar animaciones';
+    const texto = pausado ? 'Reanudar animaciones y vídeos' : 'Pausar animaciones y vídeos';
     botonPausa.setAttribute('aria-label', texto);
     botonPausa.title = texto;
     iconoPausa.textContent = pausado ? '▶' : '❚❚';
@@ -219,4 +219,85 @@
   document.querySelectorAll('[data-mover]').forEach((b) => {
     b.addEventListener('click', () => activar(actual() + parseInt(b.dataset.mover, 10), false));
   });
+
+  /* ---------- Vídeos de la app ----------
+     El HTML no lleva «autoplay»: así nada se descarga antes de pintar la página y, con
+     «reducir movimiento», ninguno arranca solo (se ve el póster con su botón ▶).
+     Cada vídeo se reproduce mientras se ve y se pausa al salir de la pantalla; los de
+     las pestañas ocultas y el marco del hero que no toca no llegan a verse nunca. */
+  const videos = [...document.querySelectorAll('.video-marco')].map((marco) => ({
+    marco,
+    v: marco.querySelector('video'),
+    boton: marco.querySelector('.video-boton'),
+    visible: false,
+    eleccion: '', // «ver» o «parar» si la persona ha usado el botón de ese vídeo
+  }));
+  const arrancaSolo = () => !movReducido.matches && !raiz.classList.contains('pausado');
+  // ¿Debe reproducirse cuando esté a la vista?
+  const encendido = (o) => o.eleccion === 'ver' || (o.eleccion === '' && arrancaSolo());
+
+  const aplicar = (o) => {
+    const on = encendido(o);
+    o.marco.classList.toggle('parado', !on);
+    o.boton.setAttribute('aria-label', (on ? 'Pausar el vídeo ' : 'Reproducir el vídeo ') + o.boton.dataset.nombre);
+    o.boton.firstElementChild.textContent = on ? '❚❚' : '▶';
+    if (on && o.visible) {
+      if (o.v.paused) {
+        o.v.play().catch((e) => {
+          // Si el navegador no deja reproducirlo (ahorro de energía…), queda el póster con ▶
+          if (e.name === 'NotAllowedError') { o.eleccion = 'parar'; aplicar(o); }
+        });
+      }
+    } else if (!o.v.paused) {
+      o.v.pause();
+    }
+  };
+
+  videos.forEach((o) => {
+    o.boton.hidden = false;
+    o.boton.addEventListener('click', () => {
+      o.eleccion = encendido(o) ? 'parar' : 'ver';
+      aplicar(o);
+    });
+    aplicar(o);
+  });
+
+  // «Pausar animaciones» y «reducir movimiento» mandan sobre lo elegido en cada vídeo
+  const reiniciarVideos = () => videos.forEach((o) => { o.eleccion = ''; aplicar(o); });
+  botonPausa.addEventListener('click', reiniciarVideos);
+  movReducido.addEventListener('change', reiniciarVideos);
+
+  // «Verla en 30 s»: abre la primera pestaña y arranca su vídeo. Con «reducir
+  // movimiento» no lo arranca: lleva el foco a su botón ▶.
+  const primerVideo = videos.find((o) => o.marco.closest('#panel-inicio'));
+  const verla = document.querySelector('.hero-botones a[href="#pantallas"]');
+  if (primerVideo && verla) {
+    verla.addEventListener('click', () => {
+      activar(0, false);
+      if (movReducido.matches) {
+        requestAnimationFrame(() => primerVideo.boton.focus({ preventScroll: true }));
+      } else {
+        primerVideo.eleccion = 'ver';
+        aplicar(primerVideo);
+      }
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    let primeraRonda = true;
+    const obsVideos = new IntersectionObserver((entradas) => {
+      entradas.forEach((en) => {
+        const o = videos.find((x) => x.v === en.target);
+        o.visible = en.isIntersecting;
+        // El que se ve al cargar pide ya sus datos básicos (duración y primer fotograma)
+        if (primeraRonda && o.visible && o.v.preload === 'none') o.v.preload = 'metadata';
+        aplicar(o);
+      });
+      primeraRonda = false;
+    }, { threshold: 0.2 });
+    // Después de «load»: ningún vídeo compite con la primera pintada de la página
+    const observarVideos = () => videos.forEach((o) => obsVideos.observe(o.v));
+    if (document.readyState === 'complete') requestAnimationFrame(observarVideos);
+    else window.addEventListener('load', () => requestAnimationFrame(observarVideos), { once: true });
+  }
 })();

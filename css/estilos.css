@@ -451,6 +451,48 @@ main:focus { outline: none; }
 }
 .video-movil { aspect-ratio: 720 / 1558; }
 
+/* Botón de cada vídeo (main.js lo muestra): pequeño en la esquina mientras se reproduce
+   y un ▶ grande en el centro del póster cuando está parado. */
+.video-marco,
+.video-marco .portatil-pantalla { position: relative; }
+.video-boton {
+  position: absolute;
+  right: 16px; bottom: 18px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  padding: 0;
+  font: 700 .9375rem/1 var(--mono);
+  color: var(--papel);
+  background: var(--tinta);
+  border: 2px solid var(--lapiz-osc);
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 var(--sombra-osc);
+  cursor: pointer;
+}
+.video-boton[hidden] { display: none; }
+.video-boton:hover { color: var(--lima); border-color: var(--lima); }
+.video-marco.parado .video-boton {
+  right: 50%; bottom: 50%;
+  translate: 50% 50%;
+  width: 72px; height: 72px;
+  font-size: 1.75rem;
+  color: var(--tinta);
+  background: var(--lima);
+  border-color: var(--tinta);
+  box-shadow: 5px 5px 0 var(--tinta);
+}
+.video-marco.parado .video-boton:hover { color: var(--tinta); background: var(--papel); }
+/* Teléfono del hero: asoma solo la parte de arriba, así que el botón va arriba */
+.movil-hero .video-boton { top: 18px; bottom: auto; }
+.movil-hero.parado .video-boton { top: 30%; bottom: auto; translate: 50% -50%; }
+/* Teléfono pequeño de la pestaña Móvil: el ▶ un poco más contenido */
+.m-centro.parado .video-boton { width: 56px; height: 56px; font-size: 1.4rem; }
+@media (max-width: 600px) {
+  .video-marco.parado .video-boton { width: 56px; height: 56px; font-size: 1.4rem; }
+}
+
 /* Hero: el portátil solo en escritorio; en el móvil, el teléfono asoma bajo los botones */
 .portatil-hero { display: none; }
 .movil.movil-hero {
