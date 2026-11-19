@@ -49,6 +49,14 @@ cambiarlos, sube la versión en `index.html` (y en las `url()` de las fuentes de
 para que nadie vea la copia vieja de la caché. Los pósters de los vídeos van en el `style` de cada
 `<video>`, también con su `?v=`.
 
+## Visitas
+
+La web cuenta visitas de forma anónima con [GoatCounter](https://www.goatcounter.com), sin cookies
+(el panel es `edulara.goatcounter.com`). `js/count.js` es una copia del script oficial
+(`gc.zgo.at/count.js`, licencia ISC) servida desde la propia web, así que no se ejecuta código de
+terceros; solo se envía el aviso de visita a GoatCounter. Para que no cuenten las visitas propias,
+abre la web una vez con `#toggle-goatcounter` al final de la dirección.
+
 ## Publicar en GitHub Pages
 
 Pages sirve la rama principal, carpeta raíz. Todas las rutas son relativas.
